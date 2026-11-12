@@ -1626,7 +1626,6 @@
       let starting = false;
       let submitting = false;
       const student = { name: "", firstName: "", section: 0 };
-      let isRefreshing = false; // علامة لمعرفة هل ده ريفريش عادي ولا قفل للصفحة
 
       const loginScreen = document.getElementById("login-screen");
       const startScreen = document.getElementById("start-screen");
@@ -1681,79 +1680,6 @@
       retryBtn.addEventListener("click", submitResult);
       reviewBtn.addEventListener("click", showReview);
       backToResultBtn.addEventListener("click", hideReview);
-
-      // رصد إعادة تحميل الصفحة (Refresh) للحفاظ على التقدم
-      window.addEventListener("beforeunload", (e) => {
-        if (!finished && sessionToken) {
-          if (isRefreshing) {
-            // لو ريفريش، بنحفظ الحالة محلياً عشان تكمل
-            saveStateToLocalStorage();
-          } else {
-            // لو قفل الصفحة أو خرج خالص، نبلغ السيرفر فوراً إنه انسحب
-            const payload = JSON.stringify({
-              action: "abandon",
-              token: sessionToken
-            });
-            if (navigator.sendBeacon) {
-              navigator.sendBeacon(SHEET_URL, payload);
-            }
-            localStorage.removeItem("xghozy_quiz_state");
-            localStorage.removeItem("xghozy_active_token");
-          }
-        }
-      });
-
-      // التقاط زرار الـ F5 أو إعادة التحميل
-      window.addEventListener("keydown", (e) => {
-        if ((e.key === "F5") || (e.ctrlKey && e.key.toLowerCase() === "r")) {
-          isRefreshing = true;
-        }
-      });
-
-      // استرجاع التقدم عند فتح الصفحة (لو ريفريش حصل)
-      window.addEventListener("DOMContentLoaded", () => {
-        const savedState = localStorage.getItem("xghozy_quiz_state");
-        if (savedState) {
-          try {
-            const data = JSON.parse(savedState);
-            if (data && data.endTime > Date.now()) {
-              student.name = data.student.name;
-              student.firstName = data.student.firstName;
-              student.section = data.student.section;
-              currentQuestion = data.currentQuestion;
-              userAnswers = data.userAnswers;
-              endTime = data.endTime;
-              sessionToken = data.sessionToken;
-              score = data.score;
-
-              loginScreen.classList.add("hidden");
-              startScreen.classList.add("hidden");
-              quizScreen.classList.remove("hidden");
-              timerBadge.classList.remove("hidden");
-              progressBadge.classList.remove("hidden");
-
-              startTimer();
-              loadQuestion();
-              return;
-            }
-          } catch (err) {}
-        }
-        localStorage.removeItem("xghozy_quiz_state");
-        localStorage.removeItem("xghozy_active_token");
-      });
-
-      function saveStateToLocalStorage() {
-        if (!sessionToken || finished) return;
-        const state = {
-          student,
-          currentQuestion,
-          userAnswers,
-          endTime,
-          sessionToken,
-          score
-        };
-        localStorage.setItem("xghozy_quiz_state", JSON.stringify(state));
-      }
 
       function el(tag, className, text) {
         const e = document.createElement(tag);
@@ -1860,8 +1786,6 @@
         }
 
         sessionToken = res.recorded ? res.token : null;
-        localStorage.setItem("xghozy_active_token", sessionToken);
-
         startError.classList.add("hidden");
         if (res.recorded) {
           modeNote.classList.add("hidden");
@@ -1904,8 +1828,6 @@
           }
         }
         submitting = false;
-        localStorage.removeItem("xghozy_quiz_state");
-        localStorage.removeItem("xghozy_active_token");
 
         if (!res) {
           setMsg(
@@ -1941,16 +1863,12 @@
 
       function startTimer() {
         clearInterval(timer);
-        if (endTime <= Date.now()) {
-          endTime = Date.now() + TOTAL_SECONDS * 1000;
-        }
+        endTime = Date.now() + TOTAL_SECONDS * 1000;
         renderTime();
         timer = setInterval(() => {
           if (renderTime() <= 0) {
             clearInterval(timer);
             showResults();
-          } else {
-            saveStateToLocalStorage();
           }
         }, 1000);
       }
@@ -1982,7 +1900,6 @@
           btn.onclick = () => selectOption(index);
           optionsContainer.appendChild(btn);
         });
-        saveStateToLocalStorage();
       }
 
       function selectOption(selectedIndex) {
@@ -2031,7 +1948,6 @@
         }
 
         nextBtn.classList.remove("hidden");
-        saveStateToLocalStorage();
       }
 
       function handleNextQuestion() {
@@ -2086,8 +2002,6 @@
         finished = false;
         sessionToken = null;
         submitting = false;
-        localStorage.removeItem("xghozy_quiz_state");
-        localStorage.removeItem("xghozy_active_token");
         saveStatus.classList.add("hidden");
         retryBtn.classList.add("hidden");
         modeNote.classList.add("hidden");
