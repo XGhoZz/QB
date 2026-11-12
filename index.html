@@ -45,8 +45,8 @@
           background-image:
             linear-gradient(
               to bottom right,
-              rgba(10, 10, 12, 0.60),
-              rgba(30, 41, 59, 0.60)
+              rgba(10, 10, 12, 0.85),
+              rgba(30, 41, 59, 0.85)
             ),
             url("phone1.jpg");
         }
@@ -252,6 +252,12 @@
         class="hidden ios-glass rounded-2xl p-6 md:p-8 shadow-2xl"
       >
         <p id="mode-note" class="hidden text-xs text-amber-300 font-bold mb-3"></p>
+        
+        <!-- تحذير مغادرة المتصفح أو فتح نافذة AI -->
+        <div id="anti-cheat-warning" class="hidden mb-4 p-3 rounded-xl bg-rose-950/80 border border-rose-500 text-rose-200 text-sm font-bold text-center animate-bounce">
+          ⚠️ ركز في الامتحان يا بطل! 🎯 ممنوع الخروج من الصفحة أو فتح تطبيقات خارجية! 🚫
+        </div>
+
         <!-- Question Category/Header -->
         <div
           class="flex justify-between items-center mb-4 text-xs md:text-sm text-cyan-400 font-bold uppercase tracking-wider"
@@ -367,7 +373,6 @@
     <footer
       class="w-full text-center py-3 text-slate-400 text-xs ios-glass border-t border-slate-800"
     >
-      <!-- Social Media Neon Icons Dock -->
       <div class="neon-dock">
         <a href="https://github.com/XGhoZz" target="_blank" rel="noopener noreferrer" class="neon-app github" title="GitHub">
           <i class="fa-brands fa-github"></i>
@@ -1619,7 +1624,7 @@
       let score = 0;
       let userAnswers = new Array(questions.length).fill(null);
       let timer;
-      const TOTAL_SECONDS = 30 * 60; // 30minutes
+      const TOTAL_SECONDS = 30 * 60; // 30 minutes
       let endTime = 0;
       let finished = false;
       let sessionToken = null;
@@ -1645,22 +1650,7 @@
       const saveStatus = document.getElementById("save-status");
       const retryBtn = document.getElementById("retry-btn");
       const finalScoreEl = document.getElementById("final-score");
-
-      const startBtn = document.getElementById("start-btn");
-      const nextBtn = document.getElementById("next-btn");
-      const restartBtn = document.getElementById("restart-btn");
-      const reviewBtn = document.getElementById("review-btn");
-      const backToResultBtn = document.getElementById("back-to-result-btn");
-
-      const questionText = document.getElementById("question-text");
-      const optionsContainer = document.getElementById("options-container");
-      const explanationBox = document.getElementById("explanation-box");
-      const explanationText = document.getElementById("explanation-text");
-      const sectionTitle = document.getElementById("section-title");
-      const currentQNum = document.getElementById("current-q-num");
-      const liveScore = document.getElementById("live-score");
-      const timerBadge = document.getElementById("timer-badge");
-      const timeDisplay = document.getElementById("time-display");
+      const antiCheatWarning = document.getElementById("anti-cheat-warning");
 
       loginBtn.addEventListener("click", handleLogin);
       [nameInput, sectionInput].forEach((inp) =>
@@ -1680,6 +1670,17 @@
       retryBtn.addEventListener("click", submitResult);
       reviewBtn.addEventListener("click", showReview);
       backToResultBtn.addEventListener("click", hideReview);
+
+      // مراقبة مغادرة الصفحة (فتح نافذة AI أو تبويب تاني)
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden && !finished && !quizScreen.classList.contains("hidden")) {
+          antiCheatWarning.classList.remove("hidden");
+        } else {
+          setTimeout(() => {
+            antiCheatWarning.classList.add("hidden");
+          }, 3000);
+        }
+      });
 
       function el(tag, className, text) {
         const e = document.createElement(tag);
@@ -1806,6 +1807,7 @@
       async function submitResult() {
         if (!sessionToken) {
           setMsg(saveStatus, "ℹ️ المحاولة دي تدريبية ومش بتتسجل.", "info");
+          localStorage.removeItem("xghozy_quiz_state");
           return;
         }
         if (submitting) return;
@@ -1842,8 +1844,10 @@
           score = res.score;
           finalScoreEl.textContent = score;
           setMsg(saveStatus, "✅ تم تسجيل درجتك في الشيت بنجاح", "ok");
+          localStorage.removeItem("xghozy_quiz_state");
         } else if (res.error === "already_finished") {
           setMsg(saveStatus, "✅ تم تسجيل درجتك في الشيت مسبقاً", "ok");
+          localStorage.removeItem("xghozy_quiz_state");
         } else {
           setMsg(
             saveStatus,
@@ -1858,12 +1862,28 @@
         const minutes = Math.floor(left / 60);
         const seconds = left % 60;
         timeDisplay.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        
+        // حفظ التقدم في المتصفح تلقائياً
+        if (!finished && sessionToken) {
+          const stateData = {
+            student,
+            currentQuestion,
+            userAnswers,
+            endTime,
+            sessionToken,
+            score
+          };
+          localStorage.setItem("xghozy_quiz_state", JSON.stringify(stateData));
+        }
+
         return left;
       }
 
       function startTimer() {
         clearInterval(timer);
-        endTime = Date.now() + TOTAL_SECONDS * 1000;
+        if (!endTime) {
+          endTime = Date.now() + TOTAL_SECONDS * 1000;
+        }
         renderTime();
         timer = setInterval(() => {
           if (renderTime() <= 0) {
@@ -1891,15 +1911,41 @@
         explanationBox.classList.add("hidden");
         nextBtn.classList.add("hidden");
 
+        const savedAns = userAnswers[currentQuestion];
+
         q.options.forEach((option, index) => {
-          const btn = el(
-            "button",
-            "w-full text-right p-4 rounded-xl bg-slate-800/60 hover:bg-slate-700/80 border border-slate-700/50 text-slate-200 font-semibold transition-all duration-200 cursor-pointer flex items-center justify-between",
-          );
+          const isSelected = savedAns === index;
+          const isCorrectAnswer = index === q.answer;
+          
+          let btnClass = "w-full text-right p-4 rounded-xl bg-slate-800/60 hover:bg-slate-700/80 border border-slate-700/50 text-slate-200 font-semibold transition-all duration-200 cursor-pointer flex items-center justify-between";
+          
+          const btn = el("button", btnClass);
           btn.appendChild(el("span", "", option));
-          btn.onclick = () => selectOption(index);
+
+          if (savedAns !== null) {
+            btn.disabled = true;
+            if (isCorrectAnswer) {
+              btn.className = "w-full text-right p-4 rounded-xl bg-emerald-600/30 border border-emerald-500 text-emerald-200 font-semibold flex items-center justify-between";
+            } else if (isSelected) {
+              btn.className = "w-full text-right p-4 rounded-xl bg-rose-600/30 border border-rose-500 text-rose-200 font-semibold flex items-center justify-between";
+            }
+          } else {
+            btn.onclick = () => selectOption(index);
+          }
+
           optionsContainer.appendChild(btn);
         });
+
+        if (savedAns !== null) {
+          explanationText.textContent = q.explanation;
+          explanationBox.classList.remove("hidden");
+          if (savedAns === q.answer) {
+            explanationBox.className = "mb-6 p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/50 text-emerald-300 text-sm md:text-base backdrop-blur-md";
+          } else {
+            explanationBox.className = "mb-6 p-4 rounded-xl border border-rose-500/50 bg-rose-950/50 text-rose-300 text-sm md:text-base backdrop-blur-md";
+          }
+          nextBtn.classList.remove("hidden");
+        }
       }
 
       function selectOption(selectedIndex) {
@@ -1964,6 +2010,7 @@
         if (finished) return;
         finished = true;
         clearInterval(timer);
+        localStorage.removeItem("xghozy_quiz_state");
         score = computeScore();
         quizScreen.classList.add("hidden");
         timerBadge.classList.add("hidden");
@@ -2002,12 +2049,14 @@
         finished = false;
         sessionToken = null;
         submitting = false;
+        localStorage.removeItem("xghozy_quiz_state");
         saveStatus.classList.add("hidden");
         retryBtn.classList.add("hidden");
         modeNote.classList.add("hidden");
         currentQuestion = 0;
         score = 0;
         userAnswers = new Array(questions.length).fill(null);
+        endTime = 0;
         timeDisplay.textContent = "30:00";
         resultScreen.classList.add("hidden");
         startScreen.classList.remove("hidden");
@@ -2069,6 +2118,39 @@
         reviewScreen.classList.add("hidden");
         resultScreen.classList.remove("hidden");
       }
+
+      // استرجاع التقدم المحفوظ تلقائياً لو الطالب عمل ريفريش
+      window.addEventListener("DOMContentLoaded", () => {
+        const saved = localStorage.getItem("xghozy_quiz_state");
+        if (saved) {
+          try {
+            const data = JSON.parse(saved);
+            if (data && data.sessionToken && data.endTime > Date.now()) {
+              student.name = data.student.name;
+              student.firstName = data.student.firstName;
+              student.section = data.student.section;
+              currentQuestion = data.currentQuestion;
+              userAnswers = data.userAnswers;
+              endTime = data.endTime;
+              sessionToken = data.sessionToken;
+              score = data.score;
+
+              loginScreen.classList.add("hidden");
+              startScreen.classList.add("hidden");
+              quizScreen.classList.remove("hidden");
+              timerBadge.classList.remove("hidden");
+              progressBadge.classList.remove("hidden");
+              
+              startTimer();
+              loadQuestion();
+            } else {
+              localStorage.removeItem("xghozy_quiz_state");
+            }
+          } catch (e) {
+            localStorage.removeItem("xghozy_quiz_state");
+          }
+        }
+      });
       })();
     </script>
   </body>
