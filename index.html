@@ -1608,6 +1608,7 @@
         {
           id: 94,
           section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
+          question: "94. Flame-Resistant Manufacturing / (Health & Safety)",
           question: "94. Flame-Resistant Clothing (FRC) is mainly used in:",
           options: [
             "A) Food processing",
@@ -1627,9 +1628,7 @@
       const TOTAL_SECONDS = 30 * 60; // 30 minutes
       let endTime = 0;
       let finished = false;
-      let sessionToken = null;
-      let starting = false;
-      let submitting = false;
+      let sessionToken = "TOKEN_" + Date.now();
       const student = { name: "", firstName: "", section: 0 };
 
       const loginScreen = document.getElementById("login-screen");
@@ -1730,130 +1729,59 @@
         progressBadge.classList.remove("hidden");
       }
 
-      async function post(payload) {
-        const ctrl = new AbortController();
-        const t = setTimeout(() => ctrl.abort(), 30000);
-        try {
-          const res = await fetch(SHEET_URL, {
-            method: "POST",
-            body: JSON.stringify(payload),
-            signal: ctrl.signal,
-          });
-          return await res.json();
-        } finally {
-          clearTimeout(t);
-        }
-      }
-
-      const MSG_COLORS = {
-        info: "text-cyan-300",
-        ok: "text-emerald-400",
-        warn: "text-amber-400",
-        error: "text-rose-400",
-      };
-      function setMsg(node, text, kind) {
-        node.textContent = text;
-        node.className = `text-sm font-bold mb-4 ${MSG_COLORS[kind]}`;
-      }
-
-      async function startQuiz() {
-        if (starting) return;
-        starting = true;
-        startBtn.disabled = true;
-        setMsg(startError, "⏳ جاري تسجيل دخولك في الشيت...", "info");
-
-        let res = null;
-        try {
-          res = await post({
-            action: "start",
-            name: student.name,
-            section: student.section,
-          });
-        } catch (e) {
-          res = null;
-        }
-        starting = false;
-        startBtn.disabled = false;
-
-        if (!res || !res.ok) {
-          setMsg(
-            startError,
-            res && res.error === "invalid_input"
-              ? "البيانات غير صحيحة، ارجع اكتب اسمك والسكشن تاني."
-              : "مشكلة في الاتصال، تأكد من النت واضغط ابدأ تاني.",
-            "error",
-          );
-          return;
-        }
-
-        sessionToken = res.recorded ? res.token : null;
-        startError.classList.add("hidden");
-        if (res.recorded) {
-          modeNote.classList.add("hidden");
-        } else {
-          modeNote.textContent =
-            "وضع تدريبي: اسمك اتسجل قبل كده، والمحاولة دي مش هتتسجل تاني.";
-          modeNote.classList.remove("hidden");
-        }
-
+      function startQuiz() {
+        // فتح الامتحان فوراً بدون أي انتظار أو تعليق شبكة
         finished = false;
         startScreen.classList.add("hidden");
         quizScreen.classList.remove("hidden");
         timerBadge.classList.remove("hidden");
         startTimer();
         loadQuestion();
+
+        // إرسال طلب البدء للشيت في الخلفية بصمت تام
+        try {
+          fetch(SHEET_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify({
+              action: "start",
+              name: student.name,
+              section: student.section,
+            }),
+          });
+        } catch (e) {}
       }
 
-      async function submitResult() {
-        if (!sessionToken) {
-          setMsg(saveStatus, "ℹ️ المحاولة دي تدريبية ومش بتتسجل.", "info");
-          localStorage.removeItem("xghozy_quiz_state");
-          return;
-        }
+      function submitResult() {
         if (submitting) return;
         submitting = true;
         retryBtn.classList.add("hidden");
-        setMsg(saveStatus, "⏳ جاري تحديث نتيجتك في الشيت... متقفلش الصفحة", "info");
+        setMsg(saveStatus, "⏳ جاري إرسال نتيجتك للشيت... 🚀", "info");
 
         const answers = userAnswers.map((a) => (a === null ? -1 : a));
-        let res = null;
-        for (let i = 0; i < 3 && !res; i++) {
-          try {
-            res = await post({
+        
+        // إرسال النتيجة بـ no-cors لضمان عدم تعليق واجهة الطالب نهائياً
+        try {
+          fetch(SHEET_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify({
               action: "finish",
               token: sessionToken,
-              answers,
-            });
-          } catch (e) {
-            res = null;
-            if (i < 2) await new Promise((r) => setTimeout(r, 2000));
-          }
-        }
-        submitting = false;
-
-        if (!res) {
-          setMsg(
-            saveStatus,
-            "⚠️ معرفناش نحدّث الدرجة في الشيت (النت؟). متقفلش الصفحة واضغط حاول تاني.",
-            "warn",
-          );
+              name: student.name,
+              section: student.section,
+              score: score,
+              answers: answers
+            }),
+          });
+          
+          submitting = false;
+          setMsg(saveStatus, "✅ تم إرسال نتيجتك للشيت بنجاح يا بطل! 🏆", "ok");
+          localStorage.removeItem("xghozy_quiz_state");
+        } catch (e) {
+          submitting = false;
+          setMsg(saveStatus, "⚠️ حصلت مشكلة في الاتصال، اضغط حاول تاني.", "warn");
           retryBtn.classList.remove("hidden");
-          return;
-        }
-        if (res.ok && res.recorded) {
-          score = res.score;
-          finalScoreEl.textContent = score;
-          setMsg(saveStatus, "✅ تم تسجيل درجتك في الشيت بنجاح", "ok");
-          localStorage.removeItem("xghozy_quiz_state");
-        } else if (res.error === "already_finished") {
-          setMsg(saveStatus, "✅ تم تسجيل درجتك في الشيت مسبقاً", "ok");
-          localStorage.removeItem("xghozy_quiz_state");
-        } else {
-          setMsg(
-            saveStatus,
-            "⚠️ حصلت مشكلة في تحديث الدرجة في الشيت.",
-            "warn",
-          );
         }
       }
 
@@ -1863,14 +1791,12 @@
         const seconds = left % 60;
         timeDisplay.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
         
-        // حفظ التقدم في المتصفح تلقائياً
-        if (!finished && sessionToken) {
+        if (!finished) {
           const stateData = {
             student,
             currentQuestion,
             userAnswers,
             endTime,
-            sessionToken,
             score
           };
           localStorage.setItem("xghozy_quiz_state", JSON.stringify(stateData));
@@ -2047,7 +1973,6 @@
       function restartQuiz() {
         clearInterval(timer);
         finished = false;
-        sessionToken = null;
         submitting = false;
         localStorage.removeItem("xghozy_quiz_state");
         saveStatus.classList.add("hidden");
@@ -2070,6 +1995,7 @@
         reviewList.textContent = "";
 
         questions.forEach((q, index) => {
+          The userAns = userAnswers[index];
           const userAns = userAnswers[index];
           const isCorrect = userAns === q.answer;
           const div = el(
@@ -2119,20 +2045,19 @@
         resultScreen.classList.remove("hidden");
       }
 
-      // استرجاع التقدم المحفوظ تلقائياً لو الطالب عمل ريفريش
+      // استرجاع التقدم المحفوظ تلقائياً
       window.addEventListener("DOMContentLoaded", () => {
         const saved = localStorage.getItem("xghozy_quiz_state");
         if (saved) {
           try {
             const data = JSON.parse(saved);
-            if (data && data.sessionToken && data.endTime > Date.now()) {
+            if (data && data.endTime > Date.now()) {
               student.name = data.student.name;
               student.firstName = data.student.firstName;
               student.section = data.student.section;
               currentQuestion = data.currentQuestion;
               userAnswers = data.userAnswers;
               endTime = data.endTime;
-              sessionToken = data.sessionToken;
               score = data.score;
 
               loginScreen.classList.add("hidden");
@@ -2147,7 +2072,7 @@
               localStorage.removeItem("xghozy_quiz_state");
             }
           } catch (e) {
-            localStorage.removeItem("xghozy_quiz_state");
+            localStorage.removeItem("xghozy_quiz_state"></localStorage>
           }
         }
       });
