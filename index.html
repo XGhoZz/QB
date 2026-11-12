@@ -32,7 +32,7 @@
             rgba(10, 10, 12, 0.85),
             rgba(30, 41, 59, 0.85)
           ),
-          url("desktop1.jpg");
+          url("desktop2.jpg");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -48,7 +48,7 @@
               rgba(10, 10, 12, 0.85),
               rgba(30, 41, 59, 0.85)
             ),
-            url("phone1.jpg");
+            url("phone2.jpg");
         }
       }
       .ios-glass {
@@ -235,7 +235,7 @@
         </h2>
         <p class="text-slate-300 text-base md:text-lg mb-6 leading-relaxed">
           الامتحان ده فيه الـ 94 سؤال من بنك أسئلة الصحة والسلامة المهنية بنفس
-          ترتيبهم وترتيب اختياراتهم. معاك 30 دقيقة من أول ما تبدأ. شد حيلك!
+          ترتيبهم وترتيب اختياراتهم. معاك 60 دقيقة من أول ما تبدأ. شد حيلك!
         </p>
         <p id="start-error" class="hidden text-sm font-bold mb-4"></p>
         <button
@@ -1619,7 +1619,7 @@
       let score = 0;
       let userAnswers = new Array(questions.length).fill(null);
       let timer;
-      const TOTAL_SECONDS = 30 * 60; // 30 minutes
+      const TOTAL_SECONDS = 60 * 60; // 60 minutes
       let endTime = 0;
       let finished = false;
       let sessionToken = null;
