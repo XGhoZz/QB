@@ -16,24 +16,21 @@
     <!-- Font Awesome Icons for Social Media -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-      /* خلفية غامقة جاهزة من أول لحظة (لو الصورة لسه بتحمّل أو مش موجودة) */
       html {
         background-color: #0a0a0c;
         color-scheme: dark;
       }
-      /* لو Tailwind اتأخر تحميله على النت الضعيف، الشاشات المخفية تفضل مخفية */
       .hidden {
         display: none !important;
       }
       body {
         background-color: #0a0a0c;
         font-family: "Cairo", sans-serif;
-        /* الخلفية الافتراضية للاب توب والديسك توب */
         background-image:
           linear-gradient(
             to bottom right,
-            rgba(10, 10, 12, 0.40),
-            rgba(63, 63, 82, 0.45)
+            rgba(10, 10, 12, 0.85),
+            rgba(30, 41, 59, 0.85)
           ),
           url("desktop1.jpg");
         background-size: cover;
@@ -42,15 +39,14 @@
         background-repeat: no-repeat;
       }
 
-      /* لو الشاشة أصغر من 768 بكسل (يعني موبايل) */
       @media (max-width: 768px) {
         body {
-          background-attachment: scroll; /* fixed بيبوّظ العرض على الموبايل */
+          background-attachment: scroll;
           background-image:
             linear-gradient(
               to bottom right,
-              rgba(10, 10, 12, 0.45),
-              rgba(63, 63, 82, 0.45)
+              rgba(10, 10, 12, 0.60),
+              rgba(30, 41, 59, 0.60)
             ),
             url("phone1.jpg");
         }
@@ -62,7 +58,6 @@
         border: 1px solid rgba(255, 255, 255, 0.12);
       }
 
-      /* شريط الأيقونات النيون الصغير */
       .neon-dock {
         display: flex;
         justify-content: center;
@@ -79,7 +74,6 @@
         box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
       }
 
-      /* تصميم كل أيقونة تطبيق نيون */
       .neon-app {
         width: 34px;
         height: 34px;
@@ -93,7 +87,6 @@
         transition: all 0.25s ease;
       }
 
-      /* إضاءة النيون لكل تطبيق */
       .neon-app.github {
         color: #00f3ff;
         border: 1px solid rgba(0, 243, 255, 0.4);
@@ -134,12 +127,12 @@
   <body class="min-h-screen text-slate-100 flex flex-col justify-between">
     <!-- Top Header -->
     <header
-      class="w-full ios-glass border-b border-slate-800 py-3 px-6 shadow-lg sticky top-0 z-50"
+      class="w-full ios-glass border-b border-slate-800 py-3 px-4 md:px-6 shadow-lg sticky top-0 z-50"
     >
-      <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <div class="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-2">
         <div class="flex items-center gap-3">
           <div
-            class="relative w-10 h-10 rounded-full p-0.5 bg-gradient-to-tr from-cyan-400 to-purple-500 shadow-lg shadow-cyan-500/30"
+            class="relative w-10 h-10 shrink-0 rounded-full p-0.5 bg-gradient-to-tr from-cyan-400 to-purple-500 shadow-lg shadow-cyan-500/30"
           >
             <img
               src="avatar-xghozy.png"
@@ -148,22 +141,22 @@
             />
           </div>
           <h1
-            class="text-lg md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400"
+            class="text-base md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400"
           >
             XGhoZz.eg - امتحان الصحة والسلامة (94 سؤال)
           </h1>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
           <!-- Countdown Timer Badge -->
           <div
             id="timer-badge"
-            class="hidden bg-rose-500/20 border border-rose-500/50 text-rose-300 text-sm font-bold px-3 py-1.5 rounded-full animate-pulse flex items-center gap-1.5"
+            class="hidden bg-rose-500/20 border border-rose-500/50 text-rose-300 text-xs md:text-sm font-bold px-3 py-1.5 rounded-full animate-pulse flex items-center gap-1.5"
           >
             ⏳ <span id="time-display">30:00</span>
           </div>
           <div
             id="progress-badge"
-            class="hidden bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 text-sm font-bold px-3 py-1.5 rounded-full"
+            class="hidden bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 text-xs md:text-sm font-bold px-3 py-1.5 rounded-full"
           >
             السؤال <span id="current-q-num">1</span> من 94
           </div>
@@ -394,7 +387,6 @@
       (() => {
       "use strict";
 
-      // رابط Google Apps Script المحدث الخاص بك
       const SHEET_URL =
         "https://script.google.com/macros/s/AKfycbxKfywxFXZKfv_g5vY4bQurZU1hak-xO2k3NQRqOfmYHNIjLuEirYaik7WrBi_vMQWc/exec";
 
@@ -1739,7 +1731,7 @@
 
       async function post(payload) {
         const ctrl = new AbortController();
-        const t = setTimeout(() => ctrl.abort(), 25000);
+        const t = setTimeout(() => ctrl.abort(), 30000);
         try {
           const res = await fetch(SHEET_URL, {
             method: "POST",
@@ -1767,7 +1759,7 @@
         if (starting) return;
         starting = true;
         startBtn.disabled = true;
-        setMsg(startError, "⏳ جاري الاتصال...", "info");
+        setMsg(startError, "⏳ جاري تسجيل دخولك في الشيت...", "info");
 
         let res = null;
         try {
@@ -1799,7 +1791,7 @@
           modeNote.classList.add("hidden");
         } else {
           modeNote.textContent =
-            "وضع تدريبي: نتيجتك اتسجلت قبل كده، والمحاولة دي مش هتتسجل.";
+            "وضع تدريبي: اسمك اتسجل قبل كده، والمحاولة دي مش هتتسجل تاني.";
           modeNote.classList.remove("hidden");
         }
 
@@ -1819,7 +1811,7 @@
         if (submitting) return;
         submitting = true;
         retryBtn.classList.add("hidden");
-        setMsg(saveStatus, "⏳ جاري تسجيل نتيجتك... متقفلش الصفحة", "info");
+        setMsg(saveStatus, "⏳ جاري تحديث نتيجتك في الشيت... متقفلش الصفحة", "info");
 
         const answers = userAnswers.map((a) => (a === null ? -1 : a));
         let res = null;
@@ -1840,7 +1832,7 @@
         if (!res) {
           setMsg(
             saveStatus,
-            "⚠️ معرفناش نسجل النتيجة (النت؟). متقفلش الصفحة واضغط حاول تاني.",
+            "⚠️ معرفناش نحدّث الدرجة في الشيت (النت؟). متقفلش الصفحة واضغط حاول تاني.",
             "warn",
           );
           retryBtn.classList.remove("hidden");
@@ -1849,25 +1841,13 @@
         if (res.ok && res.recorded) {
           score = res.score;
           finalScoreEl.textContent = score;
-          setMsg(saveStatus, "✅ تم تسجيل نتيجتك", "ok");
-        } else if (res.ok) {
-          setMsg(
-            saveStatus,
-            "ℹ️ نتيجتك اتسجلت قبل كده، فالمحاولة دي مش هتتسجل.",
-            "info",
-          );
+          setMsg(saveStatus, "✅ تم تسجيل درجتك في الشيت بنجاح", "ok");
         } else if (res.error === "already_finished") {
-          setMsg(saveStatus, "✅ تم تسجيل نتيجتك", "ok");
+          setMsg(saveStatus, "✅ تم تسجيل درجتك في الشيت مسبقاً", "ok");
         } else {
-          const reasons = {
-            too_fast: "الإجابات اتبعتت بسرعة غير طبيعية.",
-            time_over: "الوقت خلص قبل ما النتيجة توصل.",
-            unknown_session: "الجلسة مش موجودة.",
-            invalid_input: "البيانات غير صحيحة.",
-          };
           setMsg(
             saveStatus,
-            `⚠️ النتيجة ماتسجلتش: ${reasons[res.error] || "حصلت مشكلة."}`,
+            "⚠️ حصلت مشكلة في تحديث الدرجة في الشيت.",
             "warn",
           );
         }
