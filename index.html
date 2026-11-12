@@ -10,25 +10,110 @@
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
       rel="stylesheet"
     />
+    <!-- Font Awesome Icons for Social Media -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
       body {
         font-family: "Cairo", sans-serif;
+        /* الخلفية الافتراضية للاب توب والديسك توب */
         background-image:
           linear-gradient(
             to bottom right,
             rgba(10, 10, 12, 0.01),
             rgba(63, 63, 82, 0.01)
           ),
-          url("bg.jpg");
+          url("desktop1.jpg");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+
+      /* لو الشاشة أصغر من 768 بكسل (يعني موبايل) */
+      @media (max-width: 768px) {
+        body {
+          background-image:
+            linear-gradient(
+              to bottom right,
+              rgba(10, 10, 12, 0.01),
+              rgba(63, 63, 82, 0.01)
+            ),
+            url("phone1.jpg");
+        }
       }
       .ios-glass {
         background: rgba(30, 41, 59, 0.75);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      /* شريط الأيقونات النيون الصغير */
+      .neon-dock {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin: 14px auto 8px auto;
+        padding: 7px 14px;
+        width: fit-content;
+        background: rgba(10, 15, 28, 0.75);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        border-radius: 16px;
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
+      }
+
+      /* تصميم كل أيقونة تطبيق نيون */
+      .neon-app {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.04);
+        transition: all 0.25s ease;
+      }
+
+      /* إضاءة النيون لكل تطبيق */
+      .neon-app.github {
+        color: #00f3ff;
+        border: 1px solid rgba(0, 243, 255, 0.4);
+        box-shadow: 0 0 8px rgba(0, 243, 255, 0.25);
+      }
+      .neon-app.github:hover {
+        background: #00f3ff;
+        color: #050811;
+        box-shadow: 0 0 18px #00f3ff;
+        transform: translateY(-4px) scale(1.08);
+      }
+
+      .neon-app.instagram {
+        color: #ff2a85;
+        border: 1px solid rgba(255, 42, 133, 0.4);
+        box-shadow: 0 0 8px rgba(255, 42, 133, 0.25);
+      }
+      .neon-app.instagram:hover {
+        background: #ff2a85;
+        color: #fff;
+        box-shadow: 0 0 18px #ff2a85;
+        transform: translateY(-4px) scale(1.08);
+      }
+
+      .neon-app.whatsapp {
+        color: #00ff88;
+        border: 1px solid rgba(0, 255, 136, 0.4);
+        box-shadow: 0 0 8px rgba(0, 255, 136, 0.25);
+      }
+      .neon-app.whatsapp:hover {
+        background: #00ff88;
+        color: #050811;
+        box-shadow: 0 0 18px #00ff88;
+        transform: translateY(-4px) scale(1.08);
       }
     </style>
   </head>
@@ -207,10 +292,21 @@
 
     <!-- Footer -->
     <footer
-      class="w-full text-center py-4 text-slate-400 text-xs ios-glass border-t border-slate-800"
+      class="w-full text-center py-3 text-slate-400 text-xs ios-glass border-t border-slate-800"
     >
-      XGhoZz.eg &copy; 2026 - تم تطوير الامتحان التفاعلي بدقة طبق الأصل لأسئلتك
-      🎓
+      <!-- Social Media Neon Icons Dock -->
+      <div class="neon-dock">
+        <a href="https://github.com/XGhoZz" target="_blank" class="neon-app github" title="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/7amodaa_171?dlrf=MTlxb3AxdW93MjR0cQ==" target="_blank" class="neon-app instagram" title="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/201022614924" target="_blank" class="neon-app whatsapp" title="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+      XGhoZz.eg &copy; 2026 - تم تطوير الامتحان التفاعلي بدقة طبق الأصل لأسئلتك 🎓
     </footer>
 
     <!-- JavaScript Logic -->
