@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'none'; form-action 'none';" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0a0c" />
+    <title>Ahmed-ghozy - AI & Python Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Icons for Social Media -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+      html {
+        background-color: #0a0a0c;
+        color-scheme: dark;
+      }
+      .hidden {
+        display: none !important;
+      }
+      body {
+        background-color: #0a0a0c;
+        font-family: "Cairo", sans-serif;
+        background-image:
+          linear-gradient(
+            to bottom right,
+            rgba(10, 10, 12, 0.85),
+            rgba(30, 41, 59, 0.85)
+          ),
+          url("desktop2.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          background-attachment: scroll;
+          background-image:
+            linear-gradient(
+              to bottom right,
+              rgba(10, 10, 12, 0.85),
+              rgba(30, 41, 59, 0.85)
+            ),
+            url("phone2.jpg");
+        }
+      }
+      .ios-glass {
+        background: rgba(30, 41, 59, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .neon-dock {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin: 14px auto 8px auto;
+        padding: 7px 14px;
+        width: fit-content;
+        background: rgba(10, 15, 28, 0.75);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        border-radius: 16px;
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
+      }
+
+      .neon-app {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.04);
+        transition: all 0.25s ease;
+      }
+
+      .neon-app.github {
+        color: #00f3ff;
+        border: 1px solid rgba(0, 243, 255, 0.4);
+        box-shadow: 0 0 8px rgba(0, 243, 255, 0.25);
+      }
+      .neon-app.github:hover {
+        background: #00f3ff;
+        color: #050811;
+        box-shadow: 0 0 18px #00f3ff;
+        transform: translateY(-4px) scale(1.08);
+      }
+
+      .neon-app.instagram {
+        color: #ff2a85;
+        border: 1px solid rgba(255, 42, 133, 0.4);
+        box-shadow: 0 0 8px rgba(255, 42, 133, 0.25);
+      }
+      .neon-app.instagram:hover {
+        background: #ff2a85;
+        color: #fff;
+        box-shadow: 0 0 18px #ff2a85;
+        transform: translateY(-4px) scale(1.08);
+      }
+
+      .neon-app.whatsapp {
+        color: #00ff88;
+        border: 1px solid rgba(0, 255, 136, 0.4);
+        box-shadow: 0 0 8px rgba(0, 255, 136, 0.25);
+      }
+      .neon-app.whatsapp:hover {
+        background: #00ff88;
+        color: #050811;
+        box-shadow: 0 0 18px #00ff88;
+        transform: translateY(-4px) scale(1.08);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen text-slate-100 flex flex-col justify-between">
+    <!-- Top Header -->
+    <header
+      class="w-full ios-glass border-b border-slate-800 py-3 px-4 md:px-6 shadow-lg sticky top-0 z-50"
+    >
+      <div class="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-2">
+        <div class="flex items-center gap-3">
+          <div
+            class="relative w-10 h-10 shrink-0 rounded-full p-0.5 bg-gradient-to-tr from-cyan-400 to-purple-500 shadow-lg shadow-cyan-500/30"
+          >
+            <img
+              src="avatar-xghozy.png"
+              alt="Ahmed Ghozy"
+              class="w-full h-full object-cover rounded-full"
+            />
+          </div>
+          <h1
+            class="text-base md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400"
+          >
+            XGhoZz.eg - مراجعة الذكاء الاصطناعي (S1 إلى S5)
+          </h1>
+        </div>
+        <div class="flex items-center gap-2">
+          <!-- Countdown Timer Badge -->
+          <div
+            id="timer-badge"
+            class="hidden bg-rose-500/20 border border-rose-500/50 text-rose-300 text-xs md:text-sm font-bold px-3 py-1.5 rounded-full animate-pulse flex items-center gap-1.5"
+          >
+            ⏳ <span id="time-display">45:00</span>
+          </div>
+          <div
+            id="progress-badge"
+            class="hidden bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 text-xs md:text-sm font-bold px-3 py-1.5 rounded-full"
+          >
+            السؤال <span id="current-q-num">1</span> من 30
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main
+      class="max-w-3xl w-full mx-auto p-4 md:p-6 my-auto flex-grow flex flex-col justify-center"
+    >
+      <!-- Login Screen -->
+      <div
+        id="login-screen"
+        class="ios-glass rounded-2xl p-6 md:p-10 shadow-2xl text-center"
+      >
+        <div class="text-6xl mb-4">🐍</div>
+        <h2
+          dir="ltr"
+          class="text-2xl md:text-3xl font-extrabold text-white mb-2"
+        >
+          Welcome to the Python AI Quiz
+        </h2>
+        <p class="text-slate-300 text-base mb-6">
+          سجّل بياناتك عشان تبدأ المراجعة التفاعلية
+        </p>
+        <div class="space-y-4 max-w-md mx-auto text-right">
+          <div>
+            <label
+              for="student-name"
+              class="block text-sm font-bold text-cyan-300 mb-1"
+              >Student name / اسم الطالب</label
+            >
+            <input
+              id="student-name"
+              type="text"
+              maxlength="60"
+              autocomplete="name"
+              class="w-full p-3 text-base rounded-xl bg-slate-900/70 border border-slate-700 text-white focus:outline-none focus:border-cyan-400"
+            />
+          </div>
+          <div>
+            <label
+              for="student-section"
+              class="block text-sm font-bold text-cyan-300 mb-1"
+              >Section / رقم السكشن</label
+            >
+            <input
+              id="student-section"
+              type="text"
+              inputmode="numeric"
+              maxlength="3"
+              autocomplete="off"
+              class="w-full p-3 text-base rounded-xl bg-slate-900/70 border border-slate-700 text-white focus:outline-none focus:border-cyan-400"
+            />
+          </div>
+          <p id="login-error" class="hidden text-rose-400 text-sm font-bold"></p>
+          <button
+            id="login-btn"
+            class="w-full px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-lg rounded-xl shadow-lg transition-all duration-300 cursor-pointer"
+          >
+            دخول ➡️
+          </button>
+        </div>
+      </div>
+
+      <!-- Welcome / Start Screen -->
+      <div
+        id="start-screen"
+        class="hidden ios-glass rounded-2xl p-6 md:p-10 shadow-2xl text-center"
+      >
+        <div class="text-6xl mb-4">🚀</div>
+        <p id="student-greeting" class="text-cyan-300 font-bold mb-2"></p>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4">
+          جاهز تختبر نفسك في البايثون؟
+        </h2>
+        <p class="text-slate-300 text-base md:text-lg mb-6 leading-relaxed">
+          الامتحان ده بيغطي كل الـ Functions والـ Methods اللي خدناها من Section 1 لـ Section 5. معاك 45 دقيقة من أول ما تبدأ. مع كل إجابة صح أو غلط، هيظهرلك شرح مبسط. شد حيلك!
+        </p>
+        <p id="start-error" class="hidden text-sm font-bold mb-4"></p>
+        <button
+          id="start-btn"
+          class="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
+        >
+          ابدأ المراجعة دلوقتي 💡
+        </button>
+      </div>
+
+      <!-- Quiz Screen (Hidden initially) -->
+      <div
+        id="quiz-screen"
+        class="hidden ios-glass rounded-2xl p-6 md:p-8 shadow-2xl"
+      >
+        <p id="mode-note" class="hidden text-xs text-amber-300 font-bold mb-3"></p>
+        <!-- Question Category/Header -->
+        <div
+          class="flex justify-between items-center mb-4 text-xs md:text-sm text-cyan-400 font-bold uppercase tracking-wider"
+        >
+          <span id="section-title">الجزء الأول: MCQ</span>
+          <span
+            id="score-tracker"
+            class="bg-slate-900/80 px-3 py-1 rounded-full border border-slate-700"
+            >النتيجة الحالية: <span id="live-score">0</span></span
+          >
+        </div>
+
+        <!-- Question Text -->
+        <h3
+          id="question-text"
+          class="text-lg md:text-xl font-bold text-white mb-6 leading-relaxed"
+        ></h3>
+
+        <!-- Options Container -->
+        <div id="options-container" class="space-y-3 mb-6">
+          <!-- Options injected via JS -->
+        </div>
+
+        <!-- Explanation Box (Hidden until answered) -->
+        <div
+          id="explanation-box"
+          class="hidden mb-6 p-4 rounded-xl border text-sm md:text-base transition-all"
+        >
+          <p id="explanation-text" class="font-semibold"></p>
+        </div>
+
+        <!-- Next Button -->
+        <div class="flex justify-end">
+          <button
+            id="next-btn"
+            class="hidden px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer"
+          >
+            السؤال اللي بعده ⬅️
+          </button>
+        </div>
+      </div>
+
+      <!-- Result Screen (Hidden initially) -->
+      <div
+        id="result-screen"
+        class="hidden ios-glass rounded-2xl p-6 md:p-10 shadow-2xl text-center"
+      >
+        <div class="text-6xl mb-4" id="result-emoji">🎉</div>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-2">
+          خلصت المراجعة يا بطل!
+        </h2>
+        <p id="result-message" class="text-cyan-400 font-bold text-lg mb-2"></p>
+        <p id="student-summary" class="text-slate-300 text-sm mb-6"></p>
+
+        <div
+          class="bg-slate-900/80 border border-slate-700 rounded-2xl p-6 mb-6 max-w-md mx-auto"
+        >
+          <div
+            class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-2"
+          >
+            <span id="final-score">0</span> / 30
+          </div>
+          <p
+            id="performance-comment"
+            class="text-slate-300 text-sm font-semibold"
+          ></p>
+        </div>
+
+        <p id="save-status" class="hidden text-sm font-bold mb-4"></p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            id="restart-btn"
+            class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer"
+          >
+            🔄 عيد المراجعة تاني
+          </button>
+          <button
+            id="review-btn"
+            class="px-6 py-3 bg-slate-700/80 hover:bg-slate-600 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer"
+          >
+            📋 مراجعة الإجابات
+          </button>
+          <button
+            id="retry-btn"
+            class="hidden px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer"
+          >
+            🔁 حاول تسجّل النتيجة تاني
+          </button>
+        </div>
+      </div>
+
+      <!-- Review Modal/Screen (Hidden initially) -->
+      <div
+        id="review-screen"
+        class="hidden ios-glass rounded-2xl p-6 md:p-8 shadow-2xl max-h-[80vh] overflow-y-auto"
+      >
+        <h2 class="text-xl font-bold text-cyan-400 mb-4">
+          📋 مراجعة شاملة للإجابات
+        </h2>
+        <div id="review-list" class="space-y-4 mb-6 text-right">
+          <!-- Review items injected here -->
+        </div>
+        <button
+          id="back-to-result-btn"
+          class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl shadow-lg cursor-pointer"
+        >
+          رجوع للنتيجة 🔙
+        </button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="w-full text-center py-3 text-slate-400 text-xs ios-glass border-t border-slate-800"
+    >
+      <!-- Social Media Neon Icons Dock -->
+      <div class="neon-dock">
+        <a href="https://github.com/XGhoZz" target="_blank" rel="noopener noreferrer" class="neon-app github" title="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/7amodaa_171?dlrf=MTlxb3AxdW93MjR0cQ==" target="_blank" rel="noopener noreferrer" class="neon-app instagram" title="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/201022614924" target="_blank" rel="noopener noreferrer" class="neon-app whatsapp" title="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+      XGhoZz.eg &copy; 2026 - كويز تفاعلي لمادة الذكاء الاصطناعي (Python) 🎓
+    </footer>
+
+    <!-- JavaScript Logic -->
+        <script>
+  (() => {
+  "use strict";
+
+  const SHEET_URL =
+    "https://script.google.com/macros/s/AKfycbxKfywxFXZKfv_g5vY4bQurZU1hak-xO2k3NQRqOfmYHNIjLuEirYaik7WrBi_vMQWc/exec";
+
+  // بنك الأسئلة الجديد (S1 إلى S5)
+  const questions = [
+    { id: 1, section: "Section 1: Introduction", question: "ما هي اللغة التي تُعتبر 'High-level, Interpreted' وتُستخدم بكثرة في الذكاء الاصطناعي؟", options: ["A) C++", "B) Java", "C) Python", "D) HTML"], answer: 2, explanation: "إجابة صحيحة! Python هي لغة عالية المستوى (High-level) وتُفسر سطر بسطر (Interpreted)، مما يجعلها الأسهل والأشهر في مجالات الـ AI والأمن السيبراني." },
+    { id: 2, section: "Section 1: Introduction", question: "كيف نكتب تعليق (Comment) في لغة بايثون؟", options: ["A) // هذا تعليق", "B) <\!-- هذا تعليق -->", "C) /* هذا تعليق */", "D) # هذا تعليق"], answer: 3, explanation: "صح! في بايثون نستخدم علامة المربع (#) لكتابة تعليق من سطر واحد، والبايثون تتجاهله تماماً وقت التشغيل." },
+    { id: 3, section: "Section 1: Variables", question: "أي من أسماء المتغيرات التالية غير صحيح (Invalid) في بايثون؟", options: ["A) user_name", "B) 1st_name", "C) _age", "D) score1"], answer: 1, explanation: "إجابة صحيحة! القاعدة الذهبية: اسم المتغير لا يمكن أن يبدأ برقم. لذلك 1st_name غير مسموح به." },
+    { id: 4, section: "Section 1: Data Types", question: "ما هو نوع البيانات (Data Type) للقيمة التالية: `score = 95.5`؟", options: ["A) int", "B) str", "C) float", "D) bool"], answer: 2, explanation: "بالظبط! أي رقم يحتوي على علامة عشرية (Decimal) يُعتبر Float في بايثون." },
+    { id: 5, section: "Section 1: Data Types", question: "كيف نعرف نوع البيانات المخزنة داخل متغير اسمه `x`؟", options: ["A) print(x)", "B) type(x)", "C) len(x)", "D) input(x)"], answer: 1, explanation: "ممتاز! دالة type() هي المسؤولة عن إرجاع نوع البيانات، مثلاً type(10) سترجع <class 'int'>." },
+    { id: 6, section: "Section 1: Data Types", question: "ما هو الفرق الرئيسي بين الـ List والـ Tuple؟", options: ["A) الـ List تستخدم {} والـ Tuple تستخدم []", "B) الـ List قابلة للتغيير (Mutable) والـ Tuple غير قابلة للتغيير (Immutable)", "C) الـ Tuple أسرع في الطباعة", "D) لا يوجد فرق"], answer: 1, explanation: "إجابة دقيقة! الـ List تتعدل عليها (Append/Remove) وتستخدم [ ]، لكن الـ Tuple ثابتة لا يمكن تعديلها بعد إنشائها وتستخدم ( )." },
+    { id: 7, section: "Section 1: Data Types", question: "أي هيكل بيانات يُستخدم لتخزين البيانات على شكل 'مفتاح وقيمة' (Key-Value Pairs)؟", options: ["A) List", "B) Tuple", "C) Dictionary", "D) String"], answer: 2, explanation: "أحسنت! الـ Dictionary يستخدم الأقواس المعقوفة { } ويخزن البيانات كـ Key و Value، وهو ممتاز لتخزين بيانات حزم الشبكة (Packets)." },
+    { id: 8, section: "Section 2: Control Flow", question: "ماذا ترجع دالة `input()` في بايثون بشكل افتراضي؟", options: ["A) int", "B) float", "C) string", "D) bool"], answer: 2, explanation: "صح جداً! دالة input() ترجع النص (String) دائماً. لو عايز رقم، لازم تحوله بـ int() أو float()." },
+    { id: 9, section: "Section 2: Control Flow", question: "لتخزين عمر المستخدم كرقم صحيح، كيف نكتب الكود؟", options: ["A) age = input('Age: ')", "B) age = int(input('Age: '))", "C) age = str(input('Age: '))", "D) age = float(input('Age: '))"], answer: 1, explanation: "إجابة صحيحة! لازم نستخدم Type Casting ونحط دالة int() حوالين الـ input عشان نحول النص لرقم صحيح ونقدر نعمل عليه عمليات حسابية." },
+    { id: 10, section: "Section 2: Control Flow", question: "ما هو المعامل (Operator) الذي يُستخدم للتأكد من أن قيمتين متساويتين؟", options: ["A) =", "B) ==", "C) !=", "D) >="], answer: 1, explanation: "صح! علامة (=) واحدة تُستخدم للتعيين (Assignment)، لكن (==) تُستخدم للمقارنة (Comparison) وتسأل: هل القيمتين متساويتين؟" },
+    { id: 11, section: "Section 2: Control Flow", question: "في الجدار الناري (Firewall)، لو عايز نسمح بالدخول لبورت 80 أو بورت 443، نستخدم:", options: ["A) if port == 80 and port == 443:", "B) if port == 80 or port == 443:", "C) if port != 80:", "D) if port == 80 or 443:"], answer: 1, explanation: "إجابة عبقرية! نستخدم (or) لأننا نريد السماح إذا تحقق أي من الشرطين (البورت 80 أو البورت 443)." },
+    { id: 12, section: "Section 3: Lists", question: "في القائمة `ports = [80, 443, 21, 22]`، ما هي قيمة `ports[2]`؟", options: ["A) 80", "B) 443", "C) 21", "D) 22"], answer: 2, explanation: "ممتاز! الترقيم في بايثون يبدأ من الصفر (0). فـ ports[0]=80, ports[1]=443, ports[2]=21." },
+    { id: 13, section: "Section 3: Lists", question: "لإضافة عنصر جديد في نهاية القائمة، نستخدم أي Method؟", options: ["A) .insert()", "B) .remove()", "C) .append()", "D) .pop()"], answer: 2, explanation: "صح! دالة .append() بتضيف العنصر في آخر القائمة. أما .insert() بتضيف في مكان محدد (Index)." },
+    { id: 14, section: "Section 3: Lists", question: "لحذف عنصر من القائمة عن طريق قيمته (مثلاً حذف 21)، نستخدم:", options: ["A) ports.pop(21)", "B) ports.remove(21)", "C) ports.delete(21)", "D) del ports[21]"], answer: 1, explanation: "إجابة صحيحة! .remove() بتحذف بالقيمة. لكن .pop() بتحذف بالـ Index (الترتيب)." },
+    { id: 15, section: "Section 3: Lists", question: "كيف نتحقق إذا كان العنصر '443' موجوداً داخل قائمة الـ ports؟", options: ["A) ports.find(443)", "B) 443 in ports", "C) 443 == ports", "D) ports.search(443)"], answer: 1, explanation: "أحسنت! كلمة (in) هي المفتاح السحري للبحث في القوائم والنصوص، وترجع True أو False." },
+    { id: 16, section: "Section 3: Loops", question: "ما هي الدالة التي ترجع عدد العناصر داخل القائمة؟", options: ["A) size()", "B) count()", "C) len()", "D) length()"], answer: 2, explanation: "بالظبط! دالة len() هي اختصار لكلمة length وتُستخدم لمعرفة طول القائمة أو النص." },
+    { id: 17, section: "Section 3: Loops", question: "في حلقة while، ماذا يحدث لو نسينا زيادة العداد (Counter)؟", options: ["A) يتوقف البرنامج", "B) يحدث Infinite Loop (حلقة لا نهائية)", "C) يطبع خطأ", "D) يحذف القائمة"], answer: 1, explanation: "صح لسانك! لو الشرط فضل True ومفيش حاجة بتغير قيمته (زي زيادة العداد)، الحلقة هتلف لانهائي وهتعلق البرنامج." },
+    { id: 18, section: "Section 4: Strings", question: "لحذف المسافات الزائدة من بداية ونهاية النص `log = '  error  '`، نستخدم:", options: ["A) log.clear()", "B) log.strip()", "C) log.trim()", "D) log.remove()"], answer: 1, explanation: "ممتاز! دالة .strip() هي المسؤولة عن تنظيف النص من المسافات (Whitespaces) من البداية والنهاية." },
+    { id: 19, section: "Section 4: Strings", question: "لتحويل جميع حروف النص إلى حروف صغيرة (lowercase)، نستخدم:", options: ["A) .upper()", "B) .small()", "C) .lower()", "D) .case()"], answer: 2, explanation: "إجابة صحيحة! .lower() بتحول كل الحروف لصغيرة. ودي مهمة جداً في الأمن عشان نقدر نطابق النصوص من غير ما نتأثر بحالة الحروف." },
+    { id: 20, section: "Section 4: Strings", question: "لاستبدال كلمة 'failed' بكلمة 'blocked' داخل نص، نستخدم:", options: ["A) .change('failed', 'blocked')", "B) .replace('failed', 'blocked')", "C) .swap('failed', 'blocked')", "D) .update('failed', 'blocked')"], answer: 1, explanation: "بالظبط! دالة .replace(old, new) بتدور على الكلمة القديمة وتستبدلها بالجديدة." },
+    { id: 21, section: "Section 4: Strings", question: "لتحويل النص 'user admin 10.0.0.5' إلى قائمة من الكلمات، نستخدم:", options: ["A) .split()", "B) .divide()", "C) .list()", "D) .break()"], answer: 0, explanation: "أحسنت! دالة .split() بتقطع النص بناءً على المسافات وترجعه كـ List، ودي طريقة ممتازة لاستخراج الـ IP من اللوج." },
+    { id: 22, section: "Section 4: Strings", question: "للتحقق إذا كان اسم الملف ينتهي بـ '.exe'، نستخدم:", options: ["A) file.startswith('.exe')", "B) file.endswith('.exe')", "C) file.contains('.exe')", "D) '.exe' in file"], answer: 1, explanation: "إجابة دقيقة! .endswith() بترجع True لو النص بينتهي بالكلمة دي، و .startswith() للبداية." },
+    { id: 23, section: "Section 4: Strings", question: "للبحث عن وجود كلمة 'access denied' داخل نص كبير، نستخدم:", options: ["A) log.find('access denied')", "B) 'access denied' in log", "C) log.search('access denied')", "D) log == 'access denied'"], answer: 1, explanation: "صح! استخدام (in) مع النصوص بيدور على الـ Substring جوه النص الكبير، ويرجع True أو False." },
+    { id: 24, section: "Section 5: Risk Analysis", question: "إذا كان لدينا 50 طلب خبيث (Malicious) من إجمالي 1000 طلب. كيف نحسب نسبة الخطر (Probability)؟", options: ["A) (50 / 1000) * 100", "B) (1000 / 50) * 100", "C) 50 + 1000", "D) 50 * 1000"], answer: 0, explanation: "ممتاز! قانون الاحتمال هو (الجزء / الكل) * 100. يعني (50 / 1000) * 100 = 5% نسبة الخطر." },
+    { id: 25, section: "Section 5: Risk Analysis", question: "إذا كانت درجة الخطر `risk_score = 85`، والكود بيقول: `if risk_score >= 80: print('Extreme')`. ماذا سيُطبع؟", options: ["A) Moderate Risk", "B) Extreme Risk", "C) Low Risk", "D) لا يطبع شيئاً"], answer: 1, explanation: "إجابة صحيحة! لأن 85 أكبر من أو تساوي 80، فالكود هيدخل جوه الـ if ويطبع Extreme Risk." },
+    { id: 26, section: "Section 5: Risk Analysis", question: "المعامل `not` في بايثون يُستخدم لـ:", options: ["A) جمع الأرقام", "B) عكس القيمة المنطقية (True تصبح False والعكس)", "C) مقارنة نصين", "D) طباعة النتيجة"], answer: 1, explanation: "بالظبط! لو عندك متغير قيمته False، وقولت `not var`، النتيجة هتكون True. بنستخدمها كتير في تقييم المخاطر." },
+    { id: 27, section: "Section 5: Risk Analysis", question: "في كود فحص المخاطر، متى نضيف 30% إضافية لدرجة الخطر؟", options: ["A) لو مضاد الفيروسات شغال", "B) لو مضاد الفيروسات غير نشط (Antivirus is False)", "C) لو عدد الملفات قليلة", "D) لو الشبكة سريعة"], answer: 1, explanation: "أحسنت! غياب الحماية (Antivirus = False) بيعتبر عامل عدم يقين (Uncertainty) بيدفع المخاطرة لفوق، فبنضيفله نسبة." },
+    { id: 28, section: "General Logic", question: "ما هو ناتج الكود التالي: `print(10 / 2 + 3)`؟", options: ["A) 5", "B) 8", "C) 13", "D) 2"], answer: 1, explanation: "صح! القسمة بتتنفذ الأول (10/2 = 5) وبعدين الجمع (5 + 3 = 8)." },
+    { id: 29, section: "General Logic", question: "أي من التالي يُعتبر قيمة Boolean صحيحة في بايثون؟", options: ["A) 'True'", "B) True", "C) 'yes'", "D) 1.0"], answer: 1, explanation: "إجابة صحيحة! True و False (بدون علامات تنصيص) هما القيم المنطقية الوحيدة. لو كتبتهم بين علامات تنصيص هيتحولوا لنص عادي." },
+    { id: 30, section: "General Logic", question: "في القاموس (Dictionary): `packet = {'ip': '192.168.1.1', 'port': 80}`، كيف نطبع الـ IP؟", options: ["A) print(packet[0])", "B) print(packet['ip'])", "C) print(packet.ip)", "D) print(packet(ip))"], answer: 1, explanation: "ممتاز! في القواميس بنوصل للقيمة عن طريق كتابة اسم الـ Key بين أقواس مربعة [ ]، زي packet['ip']." }
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+  let userAnswers = new Array(questions.length).fill(null);
+  let timer;
+  const TOTAL_SECONDS = 45 * 60; // 45 minutes
+  let endTime = 0;
+  let finished = false;
+  let sessionToken = null;
+  let starting = false;
+  let submitting = false;
+  const student = { name: "", firstName: "", section: 0 };
+
+  const loginScreen = document.getElementById("login-screen");
+  const startScreen = document.getElementById("start-screen");
+  const quizScreen = document.getElementById("quiz-screen");
+  const resultScreen = document.getElementById("result-screen");
+  const reviewScreen = document.getElementById("review-screen");
+
+  const loginBtn = document.getElementById("login-btn");
+  const nameInput = document.getElementById("student-name");
+  const sectionInput = document.getElementById("student-section");
+  const loginError = document.getElementById("login-error");
+  const studentGreeting = document.getElementById("student-greeting");
+  const studentSummary = document.getElementById("student-summary");
+  const progressBadge = document.getElementById("progress-badge");
+  const startError = document.getElementById("start-error");
+  const modeNote = document.getElementById("mode-note");
+  const saveStatus = document.getElementById("save-status");
+  const retryBtn = document.getElementById("retry-btn");
+  const finalScoreEl = document.getElementById("final-score");
+
+  const startBtn = document.getElementById("start-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const restartBtn = document.getElementById("restart-btn");
+  const reviewBtn = document.getElementById("review-btn");
+  const backToResultBtn = document.getElementById("back-to-result-btn");
+
+  const questionText = document.getElementById("question-text");
+  const optionsContainer = document.getElementById("options-container");
+  const explanationBox = document.getElementById("explanation-box");
+  const explanationText = document.getElementById("explanation-text");
+  const sectionTitle = document.getElementById("section-title");
+  const currentQNum = document.getElementById("current-q-num");
+  const liveScore = document.getElementById("live-score");
+  const timerBadge = document.getElementById("timer-badge");
+  const timeDisplay = document.getElementById("time-display");
+
+  loginBtn.addEventListener("click", handleLogin);
+  [nameInput, sectionInput].forEach((inp) =>
+    inp.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") handleLogin();
+    }),
+  );
+  sectionInput.addEventListener("input", () => {
+    sectionInput.value = toLatinDigits(sectionInput.value).replace(/\D/g, "");
+  });
+  startBtn.addEventListener("click", startQuiz);
+  nextBtn.addEventListener("click", handleNextQuestion);
+  restartBtn.addEventListener("click", restartQuiz);
+  retryBtn.addEventListener("click", submitResult);
+  reviewBtn.addEventListener("click", showReview);
+  backToResultBtn.addEventListener("click", hideReview);
+
+  function el(tag, className, text) {
+    const e = document.createElement(tag);
+    if (className) e.className = className;
+    if (text !== undefined) e.textContent = text;
+    return e;
+  }
+
+  function toLatinDigits(v) {
+    return String(v)
+      .replace(/[\u0660-\u0669]/g, (d) => d.charCodeAt(0) - 0x0660)
+      .replace(/[\u06F0-\u06F9]/g, (d) => d.charCodeAt(0) - 0x06f0);
+  }
+
+  function cleanInput(v, max) {
+    return String(v)
+      .replace(/[\u0000-\u001F\u007F<>]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, max);
+  }
+
+  function showLoginError(msg) {
+    loginError.textContent = msg;
+    loginError.classList.remove("hidden");
+  }
+
+  function handleLogin() {
+    const name = cleanInput(nameInput.value, 60);
+    if (name.length < 2 || !/^[A-Za-z\u00C0-\u024F\u0621-\u064A\u0671-\u06D3][A-Za-z\u00C0-\u024F\u0621-\u064A\u064B-\u065F\u0671-\u06D3\s'.\-]*$/.test(name)) {
+      showLoginError("اكتب اسمك بالحروف بس (من غير أرقام أو رموز).");
+      return;
+    }
+    const secText = toLatinDigits(sectionInput.value).trim();
+    if (!/^\d{1,3}$/.test(secText) || parseInt(secText, 10) < 1) {
+      showLoginError("اكتب رقم السكشن كرقم صحيح (مثال: 3).");
+      return;
+    }
+    student.name = name;
+    student.firstName = name.split(" ")[0];
+    student.section = parseInt(secText, 10);
+    loginError.classList.add("hidden");
+    studentGreeting.textContent = `أهلاً ${student.firstName}`;
+    studentSummary.textContent = `${student.name} - Section: ${student.section}`;
+    loginScreen.classList.add("hidden");
+    startScreen.classList.remove("hidden");
+    progressBadge.classList.remove("hidden");
+  }
+
+  async function post(payload) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 30000);
+    try {
+      const res = await fetch(SHEET_URL, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        signal: ctrl.signal,
+      });
+      return await res.json();
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
+  const MSG_COLORS = { info: "text-cyan-300", ok: "text-emerald-400", warn: "text-amber-400", error: "text-rose-400" };
+  
+  function setMsg(node, text, kind) {
+    node.textContent = text;
+    node.className = `text-sm font-bold mb-4 ${MSG_COLORS[kind]}`;
+  }
+
+  async function startQuiz() {
+    if (starting) return;
+    starting = true;
+    startBtn.disabled = true;
+    setMsg(startError, "⏳ جاري تسجيل دخولك في الشيت...", "info");
+
+    let res = null;
+    try {
+      res = await post({ action: "start", name: student.name, section: student.section });
+    } catch (e) {
+      res = null;
+    }
+    starting = false;
+    startBtn.disabled = false;
+
+    if (!res || !res.ok) {
+      setMsg(startError, res && res.error === "invalid_input" ? "البيانات غير صحيحة، ارجع اكتب اسمك والسكشن تاني." : "مشكلة في الاتصال، تأكد من النت واضغط ابدأ تاني.", "error");
+      return;
+    }
+
+    sessionToken = res.recorded ? res.token : null;
+    startError.classList.add("hidden");
+    if (res.recorded) {
+      modeNote.classList.add("hidden");
+    } else {
+      modeNote.textContent = "وضع تدريبي: اسمك اتسجل قبل كده، والمحاولة دي مش هتتسجل تاني.";
+      modeNote.classList.remove("hidden");
+    }
+
+    finished = false;
+    startScreen.classList.add("hidden");
+    quizScreen.classList.remove("hidden");
+    timerBadge.classList.remove("hidden");
+    startTimer();
+    loadQuestion();
+  }
+
+  async function submitResult() {
+    if (!sessionToken) {
+      setMsg(saveStatus, "ℹ️ المحاولة دي تدريبية ومش بتتسجل.", "info");
+      return;
+    }
+    if (submitting) return;
+    submitting = true;
+    retryBtn.classList.add("hidden");
+    setMsg(saveStatus, "⏳ جاري تحديث نتيجتك في الشيت... متقفلش الصفحة", "info");
+
+    const answers = userAnswers.map((a) => (a === null ? -1 : a));
+    let res = null;
+    for (let i = 0; i < 3 && !res; i++) {
+      try {
+        res = await post({ action: "finish", token: sessionToken, answers });
+      } catch (e) {
+        res = null;
+        if (i < 2) await new Promise((r) => setTimeout(r, 2000));
+      }
+    }
+    submitting = false;
+
+    if (!res) {
+      setMsg(saveStatus, "⚠️ معرفناش نحدّث الدرجة في الشيت (النت؟). متقفلش الصفحة واضغط حاول تاني.", "warn");
+      retryBtn.classList.remove("hidden");
+      return;
+    }
+    if (res.ok && res.recorded) {
+      score = res.score;
+      finalScoreEl.textContent = score;
+      setMsg(saveStatus, "✅ تم تسجيل درجتك في الشيت بنجاح", "ok");
+    } else if (res.error === "already_finished") {
+      setMsg(saveStatus, "✅ تم تسجيل درجتك في الشيت مسبقاً", "ok");
+    } else {
+      setMsg(saveStatus, "⚠️ حصلت مشكلة في تحديث الدرجة في الشيت.", "warn");
+    }
+  }
+
+  function renderTime() {
+    const left = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
+    const minutes = Math.floor(left / 60);
+    const seconds = left % 60;
+    timeDisplay.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    return left;
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    endTime = Date.now() + TOTAL_SECONDS * 1000;
+    renderTime();
+    timer = setInterval(() => {
+      if (renderTime() <= 0) {
+        clearInterval(timer);
+        showResults();
+      }
+    }, 1000);
+  }
+
+  function computeScore() {
+    return userAnswers.reduce((sum, a, i) => sum + (a === questions[i].answer ? 1 : 0), 0);
+  }
+
+  function loadQuestion() {
+    const q = questions[currentQuestion];
+    sectionTitle.textContent = q.section;
+    currentQNum.textContent = currentQuestion + 1;
+    questionText.textContent = q.question;
+    liveScore.textContent = score;
+
+    optionsContainer.textContent = "";
+    explanationBox.classList.add("hidden");
+    nextBtn.classList.add("hidden");
+
+    q.options.forEach((option, index) => {
+      const btn = el("button", "w-full text-right p-4 rounded-xl bg-slate-800/60 hover:bg-slate-700/80 border border-slate-700/50 text-slate-200 font-semibold transition-all duration-200 cursor-pointer flex items-center justify-between");
+      btn.appendChild(el("span", "", option));
+      btn.onclick = () => selectOption(index);
+      optionsContainer.appendChild(btn);
+    });
+  }
+
+  function selectOption(selectedIndex) {
+    if (finished || userAnswers[currentQuestion] !== null) return;
+    const q = questions[currentQuestion];
+    userAnswers[currentQuestion] = selectedIndex;
+    const optionButtons = optionsContainer.children;
+
+    for (let i = 0; i < optionButtons.length; i++) {
+      optionButtons[i].disabled = true;
+      optionButtons[i].classList.remove("hover:bg-slate-700/80");
+      if (i === q.answer) {
+        optionButtons[i].classList.remove("bg-slate-800/60", "border-slate-700/50");
+        optionButtons[i].classList.add("bg-emerald-600/30", "border-emerald-500", "text-emerald-200");
+      } else if (i === selectedIndex) {
+        optionButtons[i].classList.remove("bg-slate-800/60", "border-slate-700/50");
+        optionButtons[i].classList.add("bg-rose-600/30", "border-rose-500", "text-rose-200");
+      }
+    }
+
+        score = computeScore();
+        liveScore.textContent = score;
+        explanationText.textContent = q.explanation;
+        explanationBox.classList.remove("hidden");
+        
+        if (selectedIndex === q.answer) {
+          explanationBox.className = "mb-6 p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/50 text-emerald-300 text-sm md:text-base backdrop-blur-md";
+        } else {
+          explanationBox.className = "mb-6 p-4 rounded-xl border border-rose-500/50 bg-rose-950/50 text-rose-300 text-sm md:text-base backdrop-blur-md";
+        }
+
+        nextBtn.classList.remove("hidden");
+      }
+
+      function handleNextQuestion() {
+        if (userAnswers[currentQuestion] === null) return;
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          loadQuestion();
+        } else {
+          showResults();
+        }
+      }
+
+      function showResults() {
+        if (finished) return;
+        finished = true;
+        clearInterval(timer);
+        score = computeScore();
+        quizScreen.classList.add("hidden");
+        timerBadge.classList.add("hidden");
+        resultScreen.classList.remove("hidden");
+
+        document.getElementById("final-score").textContent = score;
+        const percentage = (score / questions.length) * 100;
+
+        const resultEmoji = document.getElementById("result-emoji");
+        const resultMessage = document.getElementById("result-message");
+        const performanceComment = document.getElementById("performance-comment");
+
+        if (percentage >= 90) {
+          resultEmoji.textContent = "🏆";
+          resultMessage.textContent = "أسطورة بايثون! قفلت المراجعة يا وحش!";
+          performanceComment.textContent = "مستوى ممتاز جداً، إنت جاهز للامتحان العملي بجدارة!";
+        } else if (percentage >= 75) {
+          resultEmoji.textContent = "🔥";
+          resultMessage.textContent = "شغل عالي يا هندسة، جابت نتيجة تعبك!";
+          performanceComment.textContent = "أداء قوي جداً، مراجعة سريعة على كام نقطة وتكون بيرفكت.";
+        } else {
+          resultEmoji.textContent = "💡";
+          resultMessage.textContent = "متزعلش، المراجعة دي عشان تتعلم! حاول تاني.";
+          performanceComment.textContent = "راجع الأسئلة اللي غلطت فيها (خصوصاً الـ Functions) وجرب تاني.";
+        }
+        submitResult();
+      }
+
+      function restartQuiz() {
+        clearInterval(timer);
+        finished = false;
+        sessionToken = null;
+        submitting = false;
+        saveStatus.classList.add("hidden");
+        retryBtn.classList.add("hidden");
+        modeNote.classList.add("hidden");
+        currentQuestion = 0;
+        score = 0;
+        userAnswers = new Array(questions.length).fill(null);
+        timeDisplay.textContent = "45:00";
+        resultScreen.classList.add("hidden");
+        startScreen.classList.remove("hidden");
+      }
+
+      function showReview() {
+        resultScreen.classList.add("hidden");
+        reviewScreen.classList.remove("hidden");
+
+        const reviewList = document.getElementById("review-list");
+        reviewList.textContent = "";
+
+        questions.forEach((q, index) => {
+          const userAns = userAnswers[index];
+          const isCorrect = userAns === q.answer;
+          const div = el("div", `p-4 rounded-xl border ${isCorrect ? "border-emerald-500/40 bg-emerald-950/30" : "border-rose-500/40 bg-rose-950/30"} text-sm`);
+
+          div.appendChild(el("p", "font-bold text-white mb-2", `س${index + 1}: ${q.question}`));
+
+          const ansLine = el("p", "text-slate-300 mb-1", "إجابتك: ");
+          ansLine.appendChild(el("span", isCorrect ? "text-emerald-400 font-bold" : "text-rose-400 font-bold", userAns !== null ? q.options[userAns] : "ما جاوبتش"));
+          div.appendChild(ansLine);
+
+          if (!isCorrect) {
+            div.appendChild(el("p", "text-emerald-400 mb-1", `الإجابة الصح: ${q.options[q.answer]}`));
+          }
+
+          div.appendChild(el("p", "text-cyan-300 mt-2 text-xs bg-slate-900/70 p-2 rounded", q.explanation));
+          reviewList.appendChild(div);
+        });
+      }
+
+      function hideReview() {
+        reviewScreen.classList.add("hidden");
+        resultScreen.classList.remove("hidden");
+      }
+      })();
+    </script>
+  </body>
+    </html>
