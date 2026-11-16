@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0a0a0c" />
-    <title>Ahmed-ghozy</title>
+    <title>Ahmed-ghozy - AI & Python Quiz</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -143,7 +143,7 @@
           <h1
             class="text-base md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400"
           >
-            XGhoZz.eg - امتحان الصحة والسلامة (94 سؤال)
+            XGhoZz.eg - مراجعة الذكاء الاصطناعي (S1 إلى S5)
           </h1>
         </div>
         <div class="flex items-center gap-2">
@@ -152,13 +152,13 @@
             id="timer-badge"
             class="hidden bg-rose-500/20 border border-rose-500/50 text-rose-300 text-xs md:text-sm font-bold px-3 py-1.5 rounded-full animate-pulse flex items-center gap-1.5"
           >
-            ⏳ <span id="time-display">30:00</span>
+            ⏳ <span id="time-display">45:00</span>
           </div>
           <div
             id="progress-badge"
             class="hidden bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 text-xs md:text-sm font-bold px-3 py-1.5 rounded-full"
           >
-            السؤال <span id="current-q-num">1</span> من 94
+            السؤال <span id="current-q-num">1</span> من 30
           </div>
         </div>
       </div>
@@ -173,15 +173,15 @@
         id="login-screen"
         class="ios-glass rounded-2xl p-6 md:p-10 shadow-2xl text-center"
       >
-        <div class="text-6xl mb-4">🎓</div>
+        <div class="text-6xl mb-4">🐍</div>
         <h2
           dir="ltr"
           class="text-2xl md:text-3xl font-extrabold text-white mb-2"
         >
-          Welcome to the platform XGhoZz
+          Welcome to the Python AI Quiz
         </h2>
         <p class="text-slate-300 text-base mb-6">
-          سجّل بياناتك عشان تبدأ الامتحان
+          سجّل بياناتك عشان تبدأ المراجعة التفاعلية
         </p>
         <div class="space-y-4 max-w-md mx-auto text-right">
           <div>
@@ -231,18 +231,17 @@
         <div class="text-6xl mb-4">🚀</div>
         <p id="student-greeting" class="text-cyan-300 font-bold mb-2"></p>
         <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4">
-          جاهز تختبر نفسك وتلم المنهج؟
+          جاهز تختبر نفسك في البايثون؟
         </h2>
         <p class="text-slate-300 text-base md:text-lg mb-6 leading-relaxed">
-          الامتحان ده فيه الـ 94 سؤال من بنك أسئلة الصحة والسلامة المهنية بنفس
-          ترتيبهم وترتيب اختياراتهم. معاك 60 دقيقة من أول ما تبدأ. شد حيلك!
+          الامتحان ده بيغطي كل الـ Functions والـ Methods اللي خدناها من Section 1 لـ Section 5. معاك 45 دقيقة من أول ما تبدأ. مع كل إجابة صح أو غلط، هيظهرلك شرح مبسط. شد حيلك!
         </p>
         <p id="start-error" class="hidden text-sm font-bold mb-4"></p>
         <button
           id="start-btn"
           class="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer"
         >
-          ابدأ الامتحان دلوقتي 💡
+          ابدأ المراجعة دلوقتي 💡
         </button>
       </div>
 
@@ -301,7 +300,7 @@
       >
         <div class="text-6xl mb-4" id="result-emoji">🎉</div>
         <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-2">
-          خلصت الامتحان يا بطل!
+          خلصت المراجعة يا بطل!
         </h2>
         <p id="result-message" class="text-cyan-400 font-bold text-lg mb-2"></p>
         <p id="student-summary" class="text-slate-300 text-sm mb-6"></p>
@@ -312,7 +311,7 @@
           <div
             class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-2"
           >
-            <span id="final-score">0</span> / 94
+            <span id="final-score">0</span> / 30
           </div>
           <p
             id="performance-comment"
@@ -326,7 +325,7 @@
             id="restart-btn"
             class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 text-white font-bold rounded-xl shadow-lg transition-all cursor-pointer"
           >
-            🔄 عيد الامتحان تاني
+            🔄 عيد المراجعة تاني
           </button>
           <button
             id="review-btn"
@@ -379,7 +378,7 @@
           <i class="fa-brands fa-whatsapp"></i>
         </a>
       </div>
-      XGhoZz.eg &copy; 2026 - تم تطوير الامتحان التفاعلي بدقة طبق الأصل لأسئلتك 🎓
+      XGhoZz.eg &copy; 2026 - كويز تفاعلي لمادة الذكاء الاصطناعي (Python) 🎓
     </footer>
 
     <!-- JavaScript Logic -->
@@ -390,1236 +389,266 @@
       const SHEET_URL =
         "https://script.google.com/macros/s/AKfycbxKfywxFXZKfv_g5vY4bQurZU1hak-xO2k3NQRqOfmYHNIjLuEirYaik7WrBi_vMQWc/exec";
 
+      // بنك الأسئلة الجديد (S1 إلى S5)
       const questions = [
+        // --- Section 1: Introduction to Python ---
         {
           id: 1,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "1. Workplace Health & Safety (WHS) is primarily about:",
-          options: [
-            "A) Increasing company profits",
-            "B) Preventing injuries, illnesses, and accidents",
-            "C) Improving customer satisfaction",
-            "D) Reducing working hours",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Preventing injuries, illnesses, and accidents).",
+          section: "Section 1: Introduction",
+          question: "ما هي اللغة التي تُعتبر 'High-level, Interpreted' وتُستخدم بكثرة في الذكاء الاصطناعي؟",
+          options: ["A) C++", "B) Java", "C) Python", "D) HTML"],
+          answer: 2,
+          explanation: "إجابة صحيحة! Python هي لغة عالية المستوى (High-level) وتُفسر سطر بسطر (Interpreted)، مما يجعلها الأسهل والأشهر في مجالات الـ AI والأمن السيبراني."
         },
         {
           id: 2,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "2. The Rana Plaza factory collapse (2013) highlighted:",
-          options: [
-            "A) Overproduction issues",
-            "B) Neglect of workplace safety standards",
-            "C) Global trade competition",
-            "D) Lack of worker training",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Neglect of workplace safety standards).",
+          section: "Section 1: Introduction",
+          question: "كيف نكتب تعليق (Comment) في لغة بايثون؟",
+          options: ["A) // هذا تعليق", "B) <!-- هذا تعليق -->", "C) /* هذا تعليق */", "D) # هذا تعليق"],
+          answer: 3,
+          explanation: "صح! في بايثون نستخدم علامة المربع (#) لكتابة تعليق من سطر واحد، والبايثون تتجاهله تماماً وقت التشغيل."
         },
         {
           id: 3,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "3. According to the ILO, how many people die annually from work-related accidents and diseases?",
-          options: [
-            "A) About 100,000",
-            "B) About 1 million",
-            "C) About 2.78 million",
-            "D) About 10 million",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (About 2.78 million).",
+          section: "Section 1: Variables",
+          question: "أي من أسماء المتغيرات التالية غير صحيح (Invalid) في بايثون؟",
+          options: ["A) user_name", "B) 1st_name", "C) _age", "D) score1"],
+          answer: 1,
+          explanation: "إجابة صحيحة! القاعدة الذهبية: اسم المتغير لا يمكن أن يبدأ برقم. لذلك 1st_name غير مسموح به."
         },
         {
           id: 4,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "4. OSHA is an agency in:",
-          options: [
-            "A) United Kingdom",
-            "B) United States",
-            "C) Egypt",
-            "D) European Union",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (United States).",
+          section: "Section 1: Data Types",
+          question: "ما هو نوع البيانات (Data Type) للقيمة التالية: `score = 95.5`؟",
+          options: ["A) int", "B) str", "C) float", "D) bool"],
+          answer: 2,
+          explanation: "بالظبط! أي رقم يحتوي على علامة عشرية (Decimal) يُعتبر Float في بايثون."
         },
         {
           id: 5,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "5. What does “health” in occupational health and safety primarily refer to?",
-          options: [
-            "A) Only the absence of physical injuries",
-            "B) Only physical fitness",
-            "C) Physical, mental, and social well-being",
-            "D) The ability to work long hours",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Physical, mental, and social well-being).",
+          section: "Section 1: Data Types",
+          question: "كيف نعرف نوع البيانات المخزنة داخل متغير اسمه `x`؟",
+          options: ["A) print(x)", "B) type(x)", "C) len(x)", "D) input(x)"],
+          answer: 1,
+          explanation: "ممتاز! دالة type() هي المسؤولة عن إرجاع نوع البيانات، مثلاً type(10) سترجع <class 'int'>."
         },
         {
           id: 6,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "6. What is meant by “risk” in occupational safety?",
-          options: [
-            "A) The number of employees in a workplace",
-            "B) The combination of the likelihood of harm and its severity",
-            "C) The cost of safety equipment",
-            "D) The number of safety signs",
-          ],
+          section: "Section 1: Data Types",
+          question: "ما هو الفرق الرئيسي بين الـ List والـ Tuple؟",
+          options: ["A) الـ List تستخدم {} والـ Tuple تستخدم []", "B) الـ List قابلة للتغيير (Mutable) والـ Tuple غير قابلة للتغيير (Immutable)", "C) الـ Tuple أسرع في الطباعة", "D) لا يوجد فرق"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (The combination of the likelihood of harm and its severity).",
+          explanation: "إجابة دقيقة! الـ List تتعدل عليها (Append/Remove) وتستخدم [ ]، لكن الـ Tuple ثابتة لا يمكن تعديلها بعد إنشائها وتستخدم ( )."
         },
         {
           id: 7,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "7. Which of the following is an electrical hazard?",
-          options: [
-            "A) Poor sitting posture",
-            "B) Excessive workload",
-            "C) Damaged electrical cable",
-            "D) Loud conversation",
-          ],
+          section: "Section 1: Data Types",
+          question: "أي هيكل بيانات يُستخدم لتخزين البيانات على شكل 'مفتاح وقيمة' (Key-Value Pairs)؟",
+          options: ["A) List", "B) Tuple", "C) Dictionary", "D) String"],
           answer: 2,
-          explanation: "الإجابة الصح هي C (Damaged electrical cable).",
+          explanation: "أحسنت! الـ Dictionary يستخدم الأقواس المعقوفة { } ويخزن البيانات كـ Key و Value، وهو ممتاز لتخزين بيانات حزم الشبكة (Packets)."
         },
+
+        // --- Section 2: Control Flow ---
         {
           id: 8,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "8. Which of the following is a physical hazard?",
-          options: [
-            "A) Bullying",
-            "B) Noise",
-            "C) Viruses",
-            "D) Solvents",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Noise).",
+          section: "Section 2: Control Flow",
+          question: "ماذا ترجع دالة `input()` في بايثون بشكل افتراضي؟",
+          options: ["A) int", "B) float", "C) string", "D) bool"],
+          answer: 2,
+          explanation: "صح جداً! دالة input() ترجع النص (String) دائماً. لو عايز رقم، لازم تحوله بـ int() أو float()."
         },
         {
           id: 9,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "9. Which is an example of a chemical hazard?",
-          options: [
-            "A) Slips and trips",
-            "B) Exposure to solvents and toxic fumes",
-            "C) Stress from workload",
-            "D) Poor workstation design",
-          ],
+          section: "Section 2: Control Flow",
+          question: "لتخزين عمر المستخدم كرقم صحيح، كيف نكتب الكود؟",
+          options: ["A) age = input('Age: ')", "B) age = int(input('Age: '))", "C) age = str(input('Age: '))", "D) age = float(input('Age: '))"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (Exposure to solvents and toxic fumes).",
+          explanation: "إجابة صحيحة! لازم نستخدم Type Casting ونحط دالة int() حوالين الـ input عشان نحول النص لرقم صحيح ونقدر نعمل عليه عمليات حسابية."
         },
         {
           id: 10,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "10. Biological hazards include:",
-          options: [
-            "A) Heavy lifting",
-            "B) Viruses and bacteria",
-            "C) Radiation exposure",
-            "D) Poor posture",
-          ],
+          section: "Section 2: Control Flow",
+          question: "ما هو المعامل (Operator) الذي يُستخدم للتأكد من أن قيمتين متساويتين؟",
+          options: ["A) =", "B) ==", "C) !=", "D) >="],
           answer: 1,
-          explanation: "الإجابة الصح هي B (Viruses and bacteria).",
+          explanation: "صح! علامة (=) واحدة تُستخدم للتعيين (Assignment)، لكن (==) تُستخدم للمقارنة (Comparison) وتسأل: هل القيمتين متساويتين؟"
         },
         {
           id: 11,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "11. What is a hazard?",
-          options: [
-            "A) A source or situation with the potential to cause harm",
-            "B) The cost of an accident",
-            "C) A safety inspection report",
-            "D) A workplace rule",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (A source or situation with the potential to cause harm).",
+          section: "Section 2: Control Flow",
+          question: "في الجدار الناري (Firewall)، لو عايز نسمح بالدخول لبورت 80 أو بورت 443، نستخدم:",
+          options: ["A) if port == 80 and port == 443:", "B) if port == 80 or port == 443:", "C) if port != 80:", "D) if port == 80 or 443:"],
+          answer: 1,
+          explanation: "إجابة عبقرية! نستخدم (or) لأننا نريد السماح إذا تحقق أي من الشرطين (البورت 80 أو البورت 443)."
         },
+
+        // --- Section 3: Lists & Iteration ---
         {
           id: 12,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "12. Employees are required to:",
-          options: [
-            "A) Write safety policies",
-            "B) Enforce regulations on others",
-            "C) Follow safety procedures and report hazards",
-            "D) Issue fines for violations",
-          ],
+          section: "Section 3: Lists",
+          question: "في القائمة `ports = [80, 443, 21, 22]`، ما هي قيمة `ports[2]`؟",
+          options: ["A) 80", "B) 443", "C) 21", "D) 22"],
           answer: 2,
-          explanation: "الإجابة الصح هي C (Follow safety procedures and report hazards).",
+          explanation: "ممتاز! الترقيم في بايثون يبدأ من الصفر (0). فـ ports[0]=80, ports[1]=443, ports[2]=21."
         },
         {
           id: 13,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "13. A supervisor’s role in WHS includes:",
-          options: [
-            "A) Monitoring compliance and conducting inspections",
-            "B) Setting salaries",
-            "C) Managing customer relations",
-            "D) Approving annual leave",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Monitoring compliance and conducting inspections).",
+          section: "Section 3: Lists",
+          question: "لإضافة عنصر جديد في نهاية القائمة، نستخدم أي Method؟",
+          options: ["A) .insert()", "B) .remove()", "C) .append()", "D) .pop()"],
+          answer: 2,
+          explanation: "صح! دالة .append() بتضيف العنصر في آخر القائمة. أما .insert() بتضيف في مكان محدد (Index)."
         },
         {
           id: 14,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "14. An accident is generally defined as:",
-          options: [
-            "A) A planned workplace activity",
-            "B) An unplanned event that results in injury, damage, or loss",
-            "C) A routine safety inspection",
-            "D) A training session",
-          ],
+          section: "Section 3: Lists",
+          question: "لحذف عنصر من القائمة عن طريق قيمته (مثلاً حذف 21)، نستخدم:",
+          options: ["A) ports.pop(21)", "B) ports.remove(21)", "C) ports.delete(21)", "D) del ports[21]"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (An unplanned event that results in injury, damage, or loss).",
+          explanation: "إجابة صحيحة! .remove() بتحذف بالقيمة. لكن .pop() بتحذف بالـ Index (الترتيب)."
         },
         {
           id: 15,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "15. Why should near misses be reported?",
-          options: [
-            "A) They always result in financial losses",
-            "B) They can help identify hazards before a serious accident occurs",
-            "C) They eliminate the need for safety training",
-            "D) They replace emergency procedures",
-          ],
+          section: "Section 3: Lists",
+          question: "كيف نتحقق إذا كان العنصر '443' موجوداً داخل قائمة الـ ports؟",
+          options: ["A) ports.find(443)", "B) 443 in ports", "C) 443 == ports", "D) ports.search(443)"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (They can help identify hazards before a serious accident occurs).",
+          explanation: "أحسنت! كلمة (in) هي المفتاح السحري للبحث في القوائم والنصوص، وترجع True أو False."
         },
         {
           id: 16,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "16. Which color is commonly associated with prohibition or danger in safety signs?",
-          options: [
-            "A) Red",
-            "B) Green",
-            "C) Blue",
-            "D) White",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Red).",
+          section: "Section 3: Loops",
+          question: "ما هي الدالة التي ترجع عدد العناصر داخل القائمة؟",
+          options: ["A) size()", "B) count()", "C) len()", "D) length()"],
+          answer: 2,
+          explanation: "بالظبط! دالة len() هي اختصار لكلمة length وتُستخدم لمعرفة طول القائمة أو النص."
         },
         {
           id: 17,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "17. Which of the following is NOT a responsibility of employers under WHS?",
-          options: [
-            "A) Provide PPE",
-            "B) Identify hazards",
-            "C) Maintain safe systems of work",
-            "D) Report unsafe practices to supervisors",
-          ],
-          answer: 3,
-          explanation: "الإجابة الصح هي D (Report unsafe practices to supervisors).",
+          section: "Section 3: Loops",
+          question: "في حلقة while، ماذا يحدث لو نسينا زيادة العداد (Counter)؟",
+          options: ["A) يتوقف البرنامج", "B) يحدث Infinite Loop (حلقة لا نهائية)", "C) يطبع خطأ", "D) يحذف القائمة"],
+          answer: 1,
+          explanation: "صح لسانك! لو الشرط فضل True ومفيش حاجة بتغير قيمته (زي زيادة العداد)، الحلقة هتلف لانهائي وهتعلق البرنامج."
         },
+
+        // --- Section 4: String Methods & Log Parsing ---
         {
           id: 18,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "18. Which of the following is a psychological hazard?",
-          options: [
-            "A) Sharp metal edge",
-            "B) Excessive work-related stress",
-            "C) Damaged power socket",
-            "D) Wet laboratory floor",
-          ],
+          section: "Section 4: Strings",
+          question: "لحذف المسافات الزائدة من بداية ونهاية النص `log = '  error  '`، نستخدم:",
+          options: ["A) log.clear()", "B) log.strip()", "C) log.trim()", "D) log.remove()"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (Excessive work-related stress).",
+          explanation: "ممتاز! دالة .strip() هي المسؤولة عن تنظيف النص من المسافات (Whitespaces) من البداية والنهاية."
         },
         {
           id: 19,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "19. Which action should be taken when a student notices a damaged electrical socket?",
-          options: [
-            "A) Continue using it carefully",
-            "B) Cover it with paper",
-            "C) Report it and avoid using it until it is made safe",
-            "D) Repair it without authorization",
-          ],
+          section: "Section 4: Strings",
+          question: "لتحويل جميع حروف النص إلى حروف صغيرة (lowercase)، نستخدم:",
+          options: ["A) .upper()", "B) .small()", "C) .lower()", "D) .case()"],
           answer: 2,
-          explanation: "الإجابة الصح هي C (Report it and avoid using it until it is made safe).",
+          explanation: "إجابة صحيحة! .lower() بتحول كل الحروف لصغيرة. ودي مهمة جداً في الأمن عشان نقدر نطابق النصوص من غير ما نتأثر بحالة الحروف."
         },
         {
           id: 20,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "20. Why should organizations investigate workplace incidents?",
-          options: [
-            "A) To identify causes and prevent similar incidents from happening again",
-            "B) To punish every employee involved",
-            "C) To eliminate safety training",
-            "D) To avoid reporting incidents",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (To identify causes and prevent similar incidents from happening again).",
+          section: "Section 4: Strings",
+          question: "لاستبدال كلمة 'failed' بكلمة 'blocked' داخل نص، نستخدم:",
+          options: ["A) .change('failed', 'blocked')", "B) .replace('failed', 'blocked')", "C) .swap('failed', 'blocked')", "D) .update('failed', 'blocked')"],
+          answer: 1,
+          explanation: "بالظبط! دالة .replace(old, new) بتدور على الكلمة القديمة وتستبدلها بالجديدة."
         },
         {
           id: 21,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "21. A “safety culture” means:",
-          options: [
-            "A) Having policies on paper only",
-            "B) Employees ignoring safety risks",
-            "C) Allowing workers to decide their own rules",
-            "D) Integrating safety into every decision and action",
-          ],
-          answer: 3,
-          explanation: "الإجابة الصح هي D (Integrating safety into every decision and action).",
+          section: "Section 4: Strings",
+          question: "لتحويل النص 'user admin 10.0.0.5' إلى قائمة من الكلمات، نستخدم:",
+          options: ["A) .split()", "B) .divide()", "C) .list()", "D) .break()"],
+          answer: 0,
+          explanation: "أحسنت! دالة .split() بتقطع النص بناءً على المسافات وترجعه كـ List، ودي طريقة ممتازة لاستخراج الـ IP من اللوج."
         },
         {
           id: 22,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "22. Which of the following is an example of an ergonomic hazard?",
-          options: [
-            "A) Incorrect sitting posture for long periods",
-            "B) Exposed electrical wire",
-            "C) Chemical spill",
-            "D) Malware infection",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Incorrect sitting posture for long periods).",
+          section: "Section 4: Strings",
+          question: "للتحقق إذا كان اسم الملف ينتهي بـ '.exe'، نستخدم:",
+          options: ["A) file.startswith('.exe')", "B) file.endswith('.exe')", "C) file.contains('.exe')", "D) '.exe' in file"],
+          answer: 1,
+          explanation: "إجابة دقيقة! .endswith() بترجع True لو النص بينتهي بالكلمة دي، و .startswith() للبداية."
         },
         {
           id: 23,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "23. Which of the following is an important responsibility of students in a computer laboratory?",
-          options: [
-            "A) Ignoring damaged equipment",
-            "B) Reporting unsafe conditions",
-            "C) Repairing electrical equipment without authorization",
-            "D) Disabling safety systems",
-          ],
+          section: "Section 4: Strings",
+          question: "للبحث عن وجود كلمة 'access denied' داخل نص كبير، نستخدم:",
+          options: ["A) log.find('access denied')", "B) 'access denied' in log", "C) log.search('access denied')", "D) log == 'access denied'"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (Reporting unsafe conditions).",
+          explanation: "صح! استخدام (in) مع النصوص بيدور على الـ Substring جوه النص الكبير، ويرجع True أو False."
         },
+
+        // --- Section 5: Handling Uncertainty ---
         {
           id: 24,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "24. Who has responsibility for workplace safety?",
-          options: [
-            "A) Only the safety officer",
-            "B) Only the manager",
-            "C) Only the employees",
-            "D) Everyone has responsibilities appropriate to their role",
-          ],
-          answer: 3,
-          explanation: "الإجابة الصح هي D (Everyone has responsibilities appropriate to their role).",
+          section: "Section 5: Risk Analysis",
+          question: "إذا كان لدينا 50 طلب خبيث (Malicious) من إجمالي 1000 طلب. كيف نحسب نسبة الخطر (Probability)؟",
+          options: ["A) (50 / 1000) * 100", "B) (1000 / 50) * 100", "C) 50 + 1000", "D) 50 * 1000"],
+          answer: 0,
+          explanation: "ممتاز! قانون الاحتمال هو (الجزء / الكل) * 100. يعني (50 / 1000) * 100 = 5% نسبة الخطر."
         },
         {
           id: 25,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "25. Which behavior demonstrates good safety culture?",
-          options: [
-            "A) Reporting hazards promptly",
-            "B) Ignoring warning signs",
-            "C) Removing protective equipment",
-            "D) Hiding accidents",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Reporting hazards promptly).",
+          section: "Section 5: Risk Analysis",
+          question: "إذا كانت درجة الخطر `risk_score = 85`، والكود بيقول: `if risk_score >= 80: print('Extreme')`. ماذا سيُطبع؟",
+          options: ["A) Moderate Risk", "B) Extreme Risk", "C) Low Risk", "D) لا يطبع شيئاً"],
+          answer: 1,
+          explanation: "إجابة صحيحة! لأن 85 أكبر من أو تساوي 80، فالكود هيدخل جوه الـ if ويطبع Extreme Risk."
         },
         {
           id: 26,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "26. Why is personal responsibility important in occupational safety?",
-          options: [
-            "A) Safety depends only on management",
-            "B) Individual actions can prevent or contribute to accidents",
-            "C) It eliminates the need for safety procedures",
-            "D) It makes safety training unnecessary",
-          ],
+          section: "Section 5: Risk Analysis",
+          question: "المعامل `not` في بايثون يُستخدم لـ:",
+          options: ["A) جمع الأرقام", "B) عكس القيمة المنطقية (True تصبح False والعكس)", "C) مقارنة نصين", "D) طباعة النتيجة"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (Individual actions can prevent or contribute to accidents).",
+          explanation: "بالظبط! لو عندك متغير قيمته False، وقولت `not var`، النتيجة هتكون True. بنستخدمها كتير في تقييم المخاطر."
         },
         {
           id: 27,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "27. Which statement best describes occupational health and safety?",
-          options: [
-            "A) It deals only with physical injuries",
-            "B) It is concerned only with industrial factories",
-            "C) It involves identifying hazards, assessing risks, implementing controls, and protecting people's health and safety",
-            "D) It is required only after an accident occurs",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (It involves identifying hazards, assessing risks, implementing controls, and protecting people's health and safety).",
+          section: "Section 5: Risk Analysis",
+          question: "في كود فحص المخاطر، متى نضيف 30% إضافية لدرجة الخطر؟",
+          options: ["A) لو مضاد الفيروسات شغال", "B) لو مضاد الفيروسات غير نشط (Antivirus is False)", "C) لو عدد الملفات قليلة", "D) لو الشبكة سريعة"],
+          answer: 1,
+          explanation: "أحسنت! غياب الحماية (Antivirus = False) بيعتبر عامل عدم يقين (Uncertainty) بيدفع المخاطرة لفوق، فبنضيفله نسبة."
         },
+
+        // --- General / Logic ---
         {
           id: 28,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "28. What is the purpose of safety signs?",
-          options: [
-            "A) To decorate the workplace",
-            "B) To communicate hazards, warnings, instructions, or emergency information",
-            "C) To increase workplace productivity",
-            "D) To replace safety training completely",
-          ],
+          section: "General Logic",
+          question: "ما هو ناتج الكود التالي: `print(10 / 2 + 3)`؟",
+          options: ["A) 5", "B) 8", "C) 13", "D) 2"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (To communicate hazards, warnings, instructions, or emergency information).",
+          explanation: "صح! القسمة بتتنفذ الأول (10/2 = 5) وبعدين الجمع (5 + 3 = 8)."
         },
         {
           id: 29,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "29. Which color is commonly associated with mandatory safety instructions?",
-          options: [
-            "A) Green",
-            "B) Blue",
-            "C) Yellow",
-            "D) Red",
-          ],
+          section: "General Logic",
+          question: "أي من التالي يُعتبر قيمة Boolean صحيحة في بايثون؟",
+          options: ["A) 'True'", "B) True", "C) 'yes'", "D) 1.0"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (Blue).",
+          explanation: "إجابة صحيحة! True و False (بدون علامات تنصيص) هما القيم المنطقية الوحيدة. لو كتبتهم بين علامات تنصيص هيتحولوا لنص عادي."
         },
         {
           id: 30,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "30. Which color is commonly associated with warning signs?",
-          options: [
-            "A) Yellow",
-            "B) Blue",
-            "C) Green",
-            "D) Black",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Yellow).",
-        },
-        {
-          id: 31,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "31. What is the main purpose of hazard identification?",
-          options: [
-            "A) To increase workplace costs",
-            "B) To identify potential sources of harm",
-            "C) To eliminate all workplace activities",
-            "D) To reduce the number of employees",
-          ],
+          section: "General Logic",
+          question: "في القاموس (Dictionary): `packet = {'ip': '192.168.1.1', 'port': 80}`، كيف نطبع الـ IP؟",
+          options: ["A) print(packet[0])", "B) print(packet['ip'])", "C) print(packet.ip)", "D) print(packet(ip))"],
           answer: 1,
-          explanation: "الإجابة الصح هي B (To identify potential sources of harm).",
-        },
-        {
-          id: 32,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "32. Green safety signs are commonly used to indicate:",
-          options: [
-            "A) Prohibition",
-            "B) Warning",
-            "C) Safe conditions or emergency escape information",
-            "D) Mandatory actions",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Safe conditions or emergency escape information).",
-        },
-        {
-          id: 33,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "33. What is the primary objective of safety training?",
-          options: [
-            "A) To teach workers how to ignore hazards",
-            "B) To develop knowledge and skills for working safely",
-            "C) To eliminate the need for supervision",
-            "D) To increase workplace noise",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (To develop knowledge and skills for working safely).",
-        },
-        {
-          id: 34,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "34. Why should emergency exits remain unobstructed?",
-          options: [
-            "A) To improve the appearance of the workplace",
-            "B) To allow rapid and safe evacuation during emergencies",
-            "C) To provide additional storage space",
-            "D) To reduce ventilation",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (To allow rapid and safe evacuation during emergencies).",
-        },
-        {
-          id: 35,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "35. Which of the following best demonstrates safe behavior in a technology workplace?",
-          options: [
-            "A) Eating beside electronic equipment",
-            "B) Blocking emergency exits with equipment",
-            "C) Reporting hazards and following established procedures",
-            "D) Using damaged electrical cables",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Reporting hazards and following established procedures).",
-        },
-        {
-          id: 36,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "36. Which hazard may result from poor workstation design?",
-          options: [
-            "A) Ergonomic hazard",
-            "B) Biological hazard",
-            "C) Chemical hazard",
-            "D) Radiation hazard",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Ergonomic hazard).",
-        },
-        {
-          id: 37,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "37. What is the first step in a typical risk assessment process?",
-          options: [
-            "A) Selecting personal protective equipment",
-            "B) Identifying hazards",
-            "C) Investigating an accident",
-            "D) Purchasing new equipment",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Identifying hazards).",
-        },
-        {
-          id: 38,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "38. Which of the following is an example of a chemical hazard?",
-          options: [
-            "A) Poor sitting posture",
-            "B) Exposure to cleaning solvents",
-            "C) Excessive computer screen time",
-            "D) Weak password",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Exposure to cleaning solvents).",
-        },
-        {
-          id: 39,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "39. What two main factors are commonly used to determine risk?",
-          options: [
-            "A) Cost and time",
-            "B) Likelihood and severity",
-            "C) Temperature and humidity",
-            "D) Training and experience",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Likelihood and severity).",
-        },
-        {
-          id: 40,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "40. In a simple risk assessment matrix, risk is often calculated as:",
-          options: [
-            "A) Risk = Likelihood × Severity",
-            "B) Risk = Cost × Time",
-            "C) Risk = Training ÷ Employees",
-            "D) Risk = Equipment − Maintenance",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Risk = Likelihood × Severity).",
-        },
-        {
-          id: 41,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "41. If a hazard has a high likelihood and high severity, it generally requires:",
-          options: [
-            "A) No action",
-            "B) Immediate or urgent risk control",
-            "C) Removal of all safety signs",
-            "D) A lower level of supervision",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Immediate or urgent risk control).",
-        },
-        {
-          id: 42,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "42. Which of the following is an example of a cybersecurity hazard?",
-          options: [
-            "A) Unpatched computer system",
-            "B) Properly adjusted chair",
-            "C) Clear emergency exit",
-            "D) Adequate lighting",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Unpatched computer system).",
-        },
-        {
-          id: 43,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "43. Which of the following is an example of a cybersecurity-related workplace hazard?",
-          options: [
-            "A) An unsecured computer containing sensitive information",
-            "B) A properly adjusted office chair",
-            "C) A clearly marked emergency exit",
-            "D) Adequate laboratory lighting",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (An unsecured computer containing sensitive information).",
-        },
-        {
-          id: 44,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "44. What does likelihood describe in risk assessment?",
-          options: [
-            "A) How serious the injury could be",
-            "B) The probability that an event will occur",
-            "C) The cost of repairing equipment",
-            "D) The number of workers in a laboratory",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (The probability that an event will occur).",
-        },
-        {
-          id: 45,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "45. What does severity describe?",
-          options: [
-            "A) The probability of an incident",
-            "B) The number of safety signs",
-            "C) The seriousness of the potential harm",
-            "D) The time required for training",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (The seriousness of the potential harm).",
-        },
-        {
-          id: 46,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "46. Which technique involves physically inspecting a workplace to identify hazards?",
-          options: [
-            "A) Workplace inspection",
-            "B) Password encryption",
-            "C) Data backup",
-            "D) Software installation",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Workplace inspection).",
-        },
-        {
-          id: 47,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "47. What is a risk matrix used for?",
-          options: [
-            "A) Designing computer networks",
-            "B) Evaluating and prioritizing risks",
-            "C) Measuring employee attendance",
-            "D) Recording computer specifications",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Evaluating and prioritizing risks).",
-        },
-        {
-          id: 48,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "48. Which of the following is NOT an example of PPE?",
-          options: [
-            "A) Hard hat",
-            "B) Safety boots",
-            "C) Local exhaust ventilation",
-            "D) Gloves",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Local exhaust ventilation).",
-        },
-        {
-          id: 49,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "49. What is the main purpose of risk evaluation?",
-          options: [
-            "A) To determine whether risks require control measures",
-            "B) To eliminate all workplace documentation",
-            "C) To increase the number of hazards",
-            "D) To replace safety training",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (To determine whether risks require control measures).",
-        },
-        {
-          id: 50,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "50. What is the main role of PPE in workplace safety?",
-          options: [
-            "A) To completely eliminate hazards",
-            "B) To act as the first line of defense",
-            "C) To minimize injury or exposure when other controls fail",
-            "D) To replace engineering controls",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (To minimize injury or exposure when other controls fail).",
-        },
-        {
-          id: 51,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "51. Job rotation and rest breaks are examples of:",
-          options: [
-            "A) Substitution",
-            "B) Administrative controls",
-            "C) Elimination",
-            "D) PPE",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Administrative controls).",
-        },
-        {
-          id: 52,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "52. Replacing a toxic chemical with a safer alternative is an example of:",
-          options: [
-            "A) Elimination",
-            "B) Substitution",
-            "C) Engineering control",
-            "D) PPE",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Substitution).",
-        },
-        {
-          id: 53,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "53. Which of the following statements about PPE is TRUE?",
-          options: [
-            "A) PPE eliminates hazards completely.",
-            "B) PPE effectiveness relies on worker behavior.",
-            "C) PPE is more effective than engineering controls.",
-            "D) PPE requires no maintenance.",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (PPE effectiveness relies on worker behavior.).",
-        },
-        {
-          id: 54,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "54. Which factor does NOT affect the effectiveness of PPE?",
-          options: [
-            "A) Proper fit",
-            "B) Consistent use",
-            "C) Correct selection",
-            "D) Type of hazard elimination",
-          ],
-          answer: 3,
-          explanation: "الإجابة الصح هي D (Type of hazard elimination).",
-        },
-        {
-          id: 55,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "55. Which of the following is the MOST effective level of the Hierarchy of Controls?",
-          options: [
-            "A) PPE",
-            "B) Administrative controls",
-            "C) Engineering controls",
-            "D) Elimination",
-          ],
-          answer: 3,
-          explanation: "الإجابة الصح هي D (Elimination).",
-        },
-        {
-          id: 56,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "56. Ventilation systems used to capture contaminants are an example of:",
-          options: [
-            "A) PPE",
-            "B) Substitution",
-            "C) Engineering control",
-            "D) Administrative control",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Engineering control).",
-        },
-        {
-          id: 57,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "57. Machine guarding is an example of:",
-          options: [
-            "A) Administrative control",
-            "B) PPE",
-            "C) Engineering control",
-            "D) Substitution",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Engineering control).",
-        },
-        {
-          id: 58,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "58. Which class of hard hats provides no electrical protection?",
-          options: [
-            "A) Class G",
-            "B) Class E",
-            "C) Class C",
-            "D) Class II",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Class C).",
-        },
-        {
-          id: 59,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "59. Which PPE item is essential when working at heights above 6 feet?",
-          options: [
-            "A) Safety glasses",
-            "B) Hard hat",
-            "C) Harness and lanyard",
-            "D) Gloves",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Harness and lanyard).",
-        },
-        {
-          id: 60,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "60. Fall protection such as harnesses and lanyards belongs to:",
-          options: [
-            "A) Administrative control",
-            "B) PPE",
-            "C) Substitution",
-            "D) Engineering control",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (PPE).",
-        },
-        {
-          id: 61,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "61. High-visibility clothing is mainly used to:",
-          options: [
-            "A) Prevent slips and trips",
-            "B) Reduce exposure to chemicals",
-            "C) Ensure workers are easily seen by operators and vehicles",
-            "D) Replace substitution measures",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Ensure workers are easily seen by operators and vehicles).",
-        },
-        {
-          id: 62,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "62. A hard hat rated to protect against electrical hazards up to 20,000 volts belongs to which class?",
-          options: [
-            "A) Class G",
-            "B) Class E",
-            "C) Class C",
-            "D) Class I",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Class E).",
-        },
-        {
-          id: 63,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "63. The primary purpose of laser safety goggles is to:",
-          options: [
-            "A) Enhance vision under laser light",
-            "B) Protect eyes from harmful laser radiation",
-            "C) Reflect visible light only",
-            "D) Allow users to see laser beams clearly",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Protect eyes from harmful laser radiation).",
-        },
-        {
-          id: 64,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "64. Why can’t ordinary sunglasses replace laser safety goggles?",
-          options: [
-            "A) They are not stylish enough",
-            "B) They cannot block laser radiation effectively",
-            "C) They are heavier",
-            "D) They block only UV rays",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (They cannot block laser radiation effectively).",
-        },
-        {
-          id: 65,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "65. Why is PPE considered the least effective control in the hierarchy?",
-          options: [
-            "A) It is too expensive",
-            "B) It relies on human behavior and does not remove the hazard",
-            "C) It cannot be applied in most workplaces",
-            "D) It is illegal in most industries",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (It relies on human behavior and does not remove the hazard).",
-        },
-        {
-          id: 66,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "66. Which of the following represents the correct order of the Hierarchy of Controls (top to bottom)?",
-          options: [
-            "A) Elimination → Substitution → Engineering → Administrative → PPE",
-            "B) PPE → Administrative → Substitution → Elimination → Engineering",
-            "C) Engineering → Administrative → Substitution → Elimination → PPE",
-            "D) Substitution → Elimination → Administrative → PPE → Engineering",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Elimination → Substitution → Engineering → Administrative → PPE).",
-        },
-        {
-          id: 67,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "67. Why are face shields considered secondary protection?",
-          options: [
-            "A) They are lightweight and easy to wear.",
-            "B) They do not provide a tight seal around the eyes.",
-            "C) They are only used in laboratories.",
-            "D) They are made of polycarbonate.",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (They do not provide a tight seal around the eyes.).",
-        },
-        {
-          id: 68,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "68. Welding helmets primarily protect against:",
-          options: [
-            "A) Impact from falling tools",
-            "B) Heat and molten metal",
-            "C) Ultraviolet and infrared radiation",
-            "D) Dust particles",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Ultraviolet and infrared radiation).",
-        },
-        {
-          id: 69,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "69. Self-Contained Breathing Apparatus (SCBA) provides air from:",
-          options: [
-            "A) The surrounding environment",
-            "B) Compressed air cylinders",
-            "C) Air lines connected to a pump",
-            "D) Natural ventilation systems",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Compressed air cylinders).",
-        },
-        {
-          id: 70,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "70. Respiratory protection is primarily designed to protect workers from:",
-          options: [
-            "A) Falling objects",
-            "B) High temperatures",
-            "C) Inhalation of hazardous substances",
-            "D) Radiation exposure",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Inhalation of hazardous substances).",
-        },
-        {
-          id: 71,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "71. Air-Purifying Respirators (APR) work by:",
-          options: [
-            "A) Supplying air from a tank",
-            "B) Filtering contaminants from surrounding air",
-            "C) Cooling the inhaled air",
-            "D) Compressing outside air",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Filtering contaminants from surrounding air).",
-        },
-        {
-          id: 72,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "72. Supplied-Air Respirators (SAR) are best used:",
-          options: [
-            "A) In well-ventilated areas",
-            "B) In oxygen-deficient or highly toxic atmospheres",
-            "C) For short-duration tasks only",
-            "D) When filters are unavailable",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (In oxygen-deficient or highly toxic atmospheres).",
-        },
-        {
-          id: 73,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "73. Which of the following is an example of respiratory protection used in healthcare?",
-          options: [
-            "A) Welding mask",
-            "B) N95 respirator",
-            "C) Full-face SCBA",
-            "D) Earmuff",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (N95 respirator).",
-        },
-        {
-          id: 74,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "74. Firefighters typically use which type of respiratory protection?",
-          options: [
-            "A) Half-mask respirators",
-            "B) SCBA (Self-Contained Breathing Apparatus)",
-            "C) Disposable dust masks",
-            "D) N95 respirators",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (SCBA (Self-Contained Breathing Apparatus)).",
-        },
-        {
-          id: 75,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "75. Before using a respirator, it must be:",
-          options: [
-            "A) Sterilized with alcohol only",
-            "B) Painted for identification",
-            "C) Fit-tested for proper seal",
-            "D) Stored for 24 hours",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Fit-tested for proper seal).",
-        },
-        {
-          id: 76,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "76. One important maintenance step before and after each use of a respirator is:",
-          options: [
-            "A) Inspecting for wear and tear",
-            "B) Repainting the mask",
-            "C) Cooling it in water",
-            "D) Using it without filters",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Inspecting for wear and tear).",
-        },
-        {
-          id: 77,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "77. Respirators must be selected based on:",
-          options: [
-            "A) The wearer’s comfort only",
-            "B) The type of hazard present",
-            "C) The color of the respirator",
-            "D) The price of the equipment",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (The type of hazard present).",
-        },
-        {
-          id: 78,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "78. Which device covers the entire outer ear to block noise?",
-          options: [
-            "A) safety goggles",
-            "B) Earmuffs",
-            "C) Hard hat",
-            "D) Face shields",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Earmuffs).",
-        },
-        {
-          id: 79,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "79. Which glove type is best suited for handling sharp metal edges?",
-          options: [
-            "A) Latex gloves",
-            "B) Cut-resistant gloves",
-            "C) Chemical-resistant gloves",
-            "D) Disposable gloves",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Cut-resistant gloves).",
-        },
-        {
-          id: 80,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "80. Which type of gloves should be used when handling strong acids?",
-          options: [
-            "A) Cut-resistant gloves",
-            "B) Thermal-resistant gloves",
-            "C) Chemical-resistant gloves",
-            "D) Electrical-insulating gloves",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Chemical-resistant gloves).",
-        },
-        {
-          id: 81,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "81. Hearing protection is required when noise levels exceed:",
-          options: [
-            "A) 65 dB",
-            "B) 75 dB",
-            "C) 85 dB",
-            "D) 95 dB",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (85 dB).",
-        },
-        {
-          id: 82,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "82. Earplugs protect hearing by:",
-          options: [
-            "A) Covering the entire ear",
-            "B) Being inserted into the ear canal",
-            "C) Blocking sound electronically",
-            "D) Filtering only high-frequency sounds",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Being inserted into the ear canal).",
-        },
-        {
-          id: 83,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "83. Steel toe caps in safety shoes protect against:",
-          options: [
-            "A) Chemical exposure",
-            "B) Impact and compression injuries",
-            "C) Electrical shock",
-            "D) Slipping hazards",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Impact and compression injuries).",
-        },
-        {
-          id: 84,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "84. Which type of footwear is used for chemical resistance?",
-          options: [
-            "A) Leather boots",
-            "B) PVC or neoprene boots",
-            "C) Foundry boots",
-            "D) Composite toe shoes",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (PVC or neoprene boots).",
-        },
-        {
-          id: 85,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "85. Metatarsal guards provide protection to the:",
-          options: [
-            "A) Toes",
-            "B) Ankles",
-            "C) Upper part of the foot (instep)",
-            "D) Calves",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Upper part of the foot (instep)).",
-        },
-        {
-          id: 86,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "86. Which type of footwear is designed to reduce the risk of electric shock?",
-          options: [
-            "A) Foundry boots",
-            "B) Electrical Hazard (EH) boots",
-            "C) Chemical-resistant boots",
-            "D) Metatarsal guards",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Electrical Hazard (EH) boots).",
-        },
-        {
-          id: 87,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "87. Gloves made of Kevlar or steel mesh are typically used for:",
-          options: [
-            "A) Welding",
-            "B) Electrical work",
-            "C) Protection against sharp objects",
-            "D) Cold storage",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Protection against sharp objects).",
-        },
-        {
-          id: 88,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "88. Which of the following gloves is commonly used in healthcare and food processing?",
-          options: [
-            "A) Thermal-resistant gloves",
-            "B) Disposable gloves",
-            "C) Leather gloves",
-            "D) Cut-resistant gloves",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Disposable gloves).",
-        },
-        {
-          id: 89,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "89. Which protective clothing type is commonly used in laboratories?",
-          options: [
-            "A) Foundry suits",
-            "B) Lab coats and gowns",
-            "C) Chemical-resistant suits",
-            "D) Aluminized clothing",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Lab coats and gowns).",
-        },
-        {
-          id: 90,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "90. Which specialized protective garment is used in radiation-prone environments?",
-          options: [
-            "A) Kevlar gloves",
-            "B) Tyvek suits",
-            "C) Lead aprons",
-            "D) Aluminized suits",
-          ],
-          answer: 2,
-          explanation: "الإجابة الصح هي C (Lead aprons).",
-        },
-        {
-          id: 91,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "91. Flame-Resistant Clothing (FRC) is primarily designed to:",
-          options: [
-            "A) Resist chemical splashes",
-            "B) Self-extinguish when exposed to fire",
-            "C) Keep workers cool",
-            "D) Provide radiation protection",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Self-extinguish when exposed to fire).",
-        },
-        {
-          id: 92,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "92. Lead aprons are worn to protect against:",
-          options: [
-            "A) Biological agents",
-            "B) Radiation",
-            "C) Extreme heat",
-            "D) Sharp objects",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Radiation).",
-        },
-        {
-          id: 93,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "93. Chemical-resistant suits are often made of:",
-          options: [
-            "A) Tyvek, PVC, or neoprene",
-            "B) Cotton",
-            "C) Leather",
-            "D) Kevlar",
-          ],
-          answer: 0,
-          explanation: "الإجابة الصح هي A (Tyvek, PVC, or neoprene).",
-        },
-        {
-          id: 94,
-          section: "أسئلة الصحة والسلامة المهنية (Health & Safety)",
-          question: "94. Flame-Resistant Clothing (FRC) is mainly used in:",
-          options: [
-            "A) Food processing",
-            "B) Oil, gas, and welding industries",
-            "C) Cold storage",
-            "D) Laboratories",
-          ],
-          answer: 1,
-          explanation: "الإجابة الصح هي B (Oil, gas, and welding industries).",
-        },
+          explanation: "ممتاز! في القواميس بنوصل للقيمة عن طريق كتابة اسم الـ Key بين أقواس مربعة [ ]، زي packet['ip']."
+        }
       ];
 
       let currentQuestion = 0;
       let score = 0;
       let userAnswers = new Array(questions.length).fill(null);
       let timer;
-      const TOTAL_SECONDS = 60 * 60; // 60 minutes
+      const TOTAL_SECONDS = 45 * 60; // 45 minutes
       let endTime = 0;
       let finished = false;
       let sessionToken = null;
@@ -1976,100 +1005,94 @@
         const resultMessage = document.getElementById("result-message");
         const performanceComment = document.getElementById(
           "performance-comment",
-        );
+      );
 
-        if (percentage >= 90) {
-          resultEmoji.textContent = "🏆";
-          resultMessage.textContent = "عاشق للتميز! قفلت الامتحان يا وحش!";
-          performanceComment.textContent =
-            "مستوى ممتاز جداً، إنت متمكن من المنهج!";
-        } else if (percentage >= 75) {
-          resultEmoji.textContent = "🔥";
-          resultMessage.textContent = "شغل عالي يا بطل، جابت نتيجة تعبك!";
-          performanceComment.textContent =
-            "أداء قوي جداً، مراجعة سريعة على كام نقطة وتكون بيرفكت.";
-        } else {
-          resultEmoji.textContent = "💡";
-          resultMessage.textContent = "حاول تاني، تقدر تجيب أعلى من كده بكتير!";
-          performanceComment.textContent =
-            "راجع الأسئلة اللي غلطت فيها وجرب تاني.";
-        }
-        submitResult();
-      }
+  if (percentage >= 90) {
+    resultEmoji.textContent = "🏆";
+    resultMessage.textContent = "أسطورة بايثون! قفلت المراجعة يا وحش!";
+    performanceComment.textContent = "مستوى ممتاز جداً، إنت جاهز للامتحان العملي بجدارة!";
+  } else if (percentage >= 75) {
+    resultEmoji.textContent = "🔥";
+    resultMessage.textContent = "شغل عالي يا هندسة، جابت نتيجة تعبك!";
+    performanceComment.textContent = "أداء قوي جداً، مراجعة سريعة على كام نقطة وتكون بيرفكت.";
+  } else {
+    resultEmoji.textContent = "💡";
+    resultMessage.textContent = "متزعلش، المراجعة دي عشان تتعلم! حاول تاني.";
+    performanceComment.textContent = "راجع الأسئلة اللي غلطت فيها (خصوصاً الـ Functions) وجرب تاني.";
+  }
+  submitResult();
+}
 
-      function restartQuiz() {
-        clearInterval(timer);
-        finished = false;
-        sessionToken = null;
-        submitting = false;
-        saveStatus.classList.add("hidden");
-        retryBtn.classList.add("hidden");
-        modeNote.classList.add("hidden");
-        currentQuestion = 0;
-        score = 0;
-        userAnswers = new Array(questions.length).fill(null);
-        timeDisplay.textContent = "30:00";
-        resultScreen.classList.add("hidden");
-        startScreen.classList.remove("hidden");
-      }
+function restartQuiz() {
+  clearInterval(timer);
+  finished = false;
+  sessionToken = null;
+  submitting = false;
+  saveStatus.classList.add("hidden");
+  retryBtn.classList.add("hidden");
+  modeNote.classList.add("hidden");
+  currentQuestion = 0;
+  score = 0;
+  userAnswers = new Array(questions.length).fill(null);
+  timeDisplay.textContent = "45:00";
+  resultScreen.classList.add("hidden");
+  startScreen.classList.remove("hidden");
+}
 
-      function showReview() {
-        resultScreen.classList.add("hidden");
-        reviewScreen.classList.remove("hidden");
+function showReview() {
+  resultScreen.classList.add("hidden");
+  reviewScreen.classList.remove("hidden");
 
-        const reviewList = document.getElementById("review-list");
-        reviewList.textContent = "";
+  const reviewList = document.getElementById("review-list");
+  reviewList.textContent = "";
 
-        questions.forEach((q, index) => {
-          const userAns = userAnswers[index];
-          const isCorrect = userAns === q.answer;
-          const div = el(
-            "div",
-            `p-4 rounded-xl border ${isCorrect ? "border-emerald-500/40 bg-emerald-950/30" : "border-rose-500/40 bg-rose-950/30"} text-sm`,
-          );
+  questions.forEach((q, index) => {
+    const userAns = userAnswers[index];
+    const isCorrect = userAns === q.answer;
+    const div = el(
+      "div",
+      `p-4 rounded-xl border ${isCorrect ? "border-emerald-500/40 bg-emerald-950/30" : "border-rose-500/40 bg-rose-950/30"} text-sm`,
+    );
 
-          div.appendChild(
-            el("p", "font-bold text-white mb-2", `س${index + 1}: ${q.question}`),
-          );
+    div.appendChild(
+      el("p", "font-bold text-white mb-2", `س${index + 1}: ${q.question}`),
+    );
 
-          const ansLine = el("p", "text-slate-300 mb-1", "إجابتك: ");
-          ansLine.appendChild(
-            el(
-              "span",
-              isCorrect
-                ? "text-emerald-400 font-bold"
-                : "text-rose-400 font-bold",
-              userAns !== null ? q.options[userAns] : "ما جاوبتش",
-            ),
-          );
-          div.appendChild(ansLine);
+    const ansLine = el("p", "text-slate-300 mb-1", "إجابتك: ");
+    ansLine.appendChild(
+      el(
+        "span",
+        isCorrect
+          ? "text-emerald-400 font-bold"
+          : "text-rose-400 font-bold",
+        userAns !== null ? q.options[userAns] : "ما جاوبتش",
+      ),
+    );
+    div.appendChild(ansLine);
 
-          if (!isCorrect) {
-            div.appendChild(
-              el(
-                "p",
-                "text-emerald-400 mb-1",
-                `الإجابة الصح: ${q.options[q.answer]}`,
-              ),
-            );
-          }
+    if (!isCorrect) {
+      div.appendChild(
+        el(
+          "p",
+          "text-emerald-400 mb-1",
+          `الإجابة الصح: ${q.options[q.answer]}`,
+        ),
+      );
+    }
 
-          div.appendChild(
-            el(
-              "p",
-              "text-cyan-300 mt-2 text-xs bg-slate-900/70 p-2 rounded",
-              q.explanation,
-            ),
-          );
-          reviewList.appendChild(div);
-        });
-      }
+    div.appendChild(
+      el(
+        "p",
+        "text-cyan-300 mt-2 text-xs bg-slate-900/70 p-2 rounded",
+        q.explanation,
+      ),
+    );
+    reviewList.appendChild(div);
+  });
+}
 
-      function hideReview() {
-        reviewScreen.classList.add("hidden");
-        resultScreen.classList.remove("hidden");
-      }
-      })();
-    </script>
-  </body>
-</html>
+function hideReview() {
+  reviewScreen.classList.add("hidden");
+  resultScreen.classList.remove("hidden");
+}
+})();
